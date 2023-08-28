@@ -96,6 +96,7 @@ a:hover {
 
 .icon {
     background-image: url('/assets/images/icon.png');
+    background-size: cover;
     height: 50px;
     width: 50px;
 }
