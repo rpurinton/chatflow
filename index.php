@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css%22%3E
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
     <style>
     </style>
@@ -39,7 +39,7 @@
     <script>
         // Add JavaScript code to handle the login functionality here
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-event.preventDefault();
+            event.preventDefault();
             // Perform the login logic here (e.g., validate credentials, make API requests)
             // Redirect to the appropriate page if login is successful
         });
