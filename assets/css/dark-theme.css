@@ -70,8 +70,32 @@ a:hover {
     max-width: 1000px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: start;
     align-content: start;
     margin: 0 auto;
     padding: 20px;
+}
+
+.icon__container {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.icon {
+    background-image: '/assets/images/icon.png';
+    height: 50px;
+    width: 50px;
 }

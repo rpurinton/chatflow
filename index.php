@@ -28,6 +28,9 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
+            <div class="icon-container">
+                <div class="icon"></div>
+            </div>
         </div>
 
         <div class="mt-3">
