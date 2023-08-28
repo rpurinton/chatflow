@@ -33,15 +33,40 @@ input[type="password"] {
     background-color: #333;
     color: #fff;
     border: 1px solid #555;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
 }
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #ccc;
+    font-style: italic;
+}
+
 
 button[type="submit"] {
     background-color: #555;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
 }
