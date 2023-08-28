@@ -91,6 +91,7 @@ a:hover {
 }
 
 .card-login-2 {
+    background-color: transparent;
     margin-top: 30px;
     padding: 20px;
 }
