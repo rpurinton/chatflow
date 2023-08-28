@@ -1,0 +1,48 @@
+body {
+    background-color: #222;
+    color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #fff;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    color: #ccc;
+}
+
+input[type="text"],
+input[type="password"] {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+button[type="submit"] {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+a {
+    color: #ccc;
+}
+
+a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
