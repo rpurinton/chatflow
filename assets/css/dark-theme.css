@@ -81,6 +81,7 @@ a:hover {
     height: 120px;
     width: 120px;
     border-radius: 50%;
+    border: 2px solid #333;
     background-color: rgb(242, 242, 242);
     display: flex;
     flex-wrap: wrap;
