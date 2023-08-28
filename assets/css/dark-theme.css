@@ -83,6 +83,7 @@ a:hover {
     border-radius: 50%;
     border: 2px solid #333;
     background-color: rgb(242, 242, 242);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
