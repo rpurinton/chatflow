@@ -92,8 +92,8 @@ a:hover {
     margin: 0 auto;
     padding: 20px;
     position: absolute;
-    bottom: -60px;
-    right: -60px;
+    bottom: -16px;
+    right: -52px;
 }
 
 .icon {
