@@ -35,6 +35,8 @@
             <button type="button">Create Account</button>
             <button type="button">Reset Password</button>
         </div>
+        <div class="spacer"></div>
+        <div class="footer">ChatFlow &copy; 2023</div>
     </div>
 
     <script>

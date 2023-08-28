@@ -104,6 +104,10 @@ a:hover {
     color: #222;
 }
 
+.spacer {
+    flex-grow: 1;
+}
+
 .container {
     height: 100%;
     max-width: 1000px;
