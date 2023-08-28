@@ -95,7 +95,7 @@ a:hover {
 }
 
 .icon {
-    background-image: '/assets/images/icon.png';
+    background-image: url('/assets/images/icon.png');
     height: 50px;
     width: 50px;
 }
