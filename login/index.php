@@ -32,8 +32,8 @@
             </div>
         </div>
         <div class="card card-login card-login-2">
-            <button type="button">Create Account</button>
-            <button type="button">Reset Password</button>
+            <button type="button">Create an Account?</button>
+            <button type="button">Forgot your Password?</button>
         </div>
         <div class="spacer"></div>
         <div class="footer">ChatFlow &copy; 2023</div>
