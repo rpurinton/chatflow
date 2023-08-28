@@ -30,6 +30,7 @@
             </div>
             <div class="icon-container">
                 <div class="icon"></div>
+                <p class="icon-title">ChatFlow</p>
             </div>
         </div>
 
