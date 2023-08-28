@@ -1,9 +1,14 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: #222;
     background-image: url('/assets/images/background.png');
     background-size: cover;
     background-position: center;
     color: #fff;
+    height: 100%;
 }
 
 h1,
@@ -59,6 +64,7 @@ a:hover {
 }
 
 .container {
+    height: 100%;
     max-width: 1000px;
     display: flex;
     flex-wrap: wrap;
