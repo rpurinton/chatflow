@@ -49,3 +49,13 @@ a:hover {
     color: #fff;
     text-decoration: underline;
 }
+
+.card-login {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
