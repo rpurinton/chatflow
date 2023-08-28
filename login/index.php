@@ -31,10 +31,9 @@
                 <p class="icon-title">ChatFlow</p>
             </div>
         </div>
-
-        <div class="mt-3">
-            <p>Don't have an account? <a href="signup.html">Create Account</a></p>
-            <p>Forgot your password? <a href="forgot-password.html">Reset Password</a></p>
+        <div class="card card-login">
+            <button type="button" class="btn btn-secondary">Create Account</button>
+            <button type="button" class="btn btn-secondary">Reset Password</button>
         </div>
     </div>
 
