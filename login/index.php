@@ -31,7 +31,7 @@
                 <p class="icon-title">ChatFlow</p>
             </div>
         </div>
-        <div class="card card-login">
+        <div class="card card-login card-login-2">
             <button type="button" class="btn btn-secondary">Create Account</button>
             <button type="button" class="btn btn-secondary">Reset Password</button>
         </div>
