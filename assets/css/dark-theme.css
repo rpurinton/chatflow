@@ -6,7 +6,7 @@ body {
     background-color: #222;
     background-image: url('/assets/images/background.png');
     background-size: cover;
-    background-position: center;
+    background-position: left;
     color: #fff;
     height: 100%;
 }
