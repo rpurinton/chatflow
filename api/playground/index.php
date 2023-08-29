@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +62,8 @@
                         apiResponse.value = this.responseText;
                     }
                 };
-                xhttp.open("POST", apiEndpoint, true);
+                // use HTTPS
+                xhttp.open("POST", "https://<?= $_SERVER["HTTP_HOST"] ?>" + apiEndpoint, true);
                 xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.setRequestHeader("Authorization", apiToken);
                 xhttp.send(apiData);
