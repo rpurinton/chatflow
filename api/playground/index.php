@@ -56,18 +56,41 @@
                 var apiToken = document.getElementById('apiToken').value;
                 var apiData = document.getElementById('apiData').value;
                 var apiResponse = document.getElementById('apiResponse');
-                // use HTTPS
-                var apiURL = "https://chatflow.discommand.com" + apiEndpoint;
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", apiURL, true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.setRequestHeader("Authorization", apiToken);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        apiResponse.value = xhr.responseText;
-                    }
-                };
-                xhr.send(apiData);
+
+                fetch(apiEndpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': apiToken
+                        },
+                        body: apiData
+                    }).then(response => {
+                        const reader = response.body.getReader();
+                        const decoder = new TextDecoder();
+                        let responseText = '';
+
+                        function read() {
+                            return reader.read().then(({
+                                done,
+                                value
+                            }) => {
+                                if (done) {
+                                    apiResponse.value = responseText.replace(/\0/g, '');
+                                    return;
+                                }
+                                responseText += decoder.decode(value);
+                                responseText = responseText.replace(/\0/g, '');
+                                apiResponse.value = responseText;
+                                return read();
+                            });
+                        }
+                        return read();
+                    })
+                    .catch(error => {
+                        if (error.name !== 'AbortError') {
+                            console.error(error);
+                        }
+                    });
             });
             document.getElementById('clearButton').addEventListener('click', function(event) {
                 document.getElementById('apiData').value = "";
