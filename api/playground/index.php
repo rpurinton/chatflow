@@ -47,7 +47,7 @@
         <div class="card playground-card flex">
             <div class="card-header flex flex-row">
                 <img src='/assets/images/icon.png' width="24" height="24" class="d-inline-block align-top" alt="">
-                ChatFlow Playground
+                <p>ChatFlow Playground</p>
             </div>
             <div class="card-body flex flex-grow">
                 <form id="apiForm" class="flex flex-grow">
