@@ -33,7 +33,7 @@ if ($json_input["session"] == "new") {
     extract($sql->single("SELECT count(1) as `valid` FROM `collections` WHERE `collection_id` = '$collection_id'"));
     if (!$valid) error(400);
     // check if this api token has access to this collection
-    extract($sql->single("SELECT count(1) as `valid` FROM `collection_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
+    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
     if (!$valid) error(401);
     // create the new session
     $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
