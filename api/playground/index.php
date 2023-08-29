@@ -37,7 +37,7 @@
     <div class="container">
         <div class="card playground-card">
             <div class="card-header">
-                <img src='/assets/images/icon.png' width="28" height="28" class="d-inline-block align-top" alt="">
+                <img src='/assets/images/icon.png' width="24" height="24" class="d-inline-block align-top" alt="">
                 ChatFlow Playground
             </div>
             <div class="card-body">
