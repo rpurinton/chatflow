@@ -77,7 +77,7 @@ function error($code)
 
 function pad_echo($str)
 {
-    echo (str_pad($str, 2048, "\0"));
+    echo (str_pad($str, 4096, "\0"));
     flush();
     @ob_flush();
 }
