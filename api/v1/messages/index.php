@@ -41,7 +41,7 @@ if ($json_input["session"] == "new") {
     if (!is_numeric($session_id)) error(400, "Invalid session ID. Must be numeric.");
     extract($sql->single("SELECT count(1) as `valid` FROM `sessions` WHERE `session_id` = '$session_id'"));
     if (!$valid) error(400, "Invalid session ID. Check your session ID and try again.");
-    extract($sql->single("SELECT count(1) as `valid` FROM `collection_api_tokens` WHERE `collection_id` = (SELECT `collection_id` FROM `sessions` WHERE `session_id` = '$session_id') AND `token_id` = '$token_id'"));
+    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = (SELECT `collection_id` FROM `sessions` WHERE `session_id` = '$session_id') AND `token_id` = '$token_id'"));
     if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
 }
 $stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
