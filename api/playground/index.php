@@ -10,12 +10,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
     <style>
+        .playground-card {
+            width: calc(100% - 40px);
+            max-width: 800px;
+            margin: 20px auto;
+            height: calc(100% - 40px);
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="card">
+        <div class="card playground-card">
             <div class="card-header">
                 API Playground
             </div>
@@ -33,11 +39,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="apiData" class="form-label">API Data</label>
-                        <textarea class="form-control" id="apiData" rows="3"></textarea>
+                        <textarea class="form-control" id="apiData" rows="20"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="apiResponse" class="form-label">API Response</label>
-                        <textarea class="form-control" id="apiResponse" rows="3" readonly></textarea>
+                        <textarea class="form-control" id="apiResponse" rows="20" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
