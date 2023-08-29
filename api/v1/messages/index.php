@@ -66,6 +66,7 @@ function error($code, $message = null)
     $result["result"] = "error";
     $result["code"] = $code;
     $result["error"] = $message;
+    echo json_encode($result, JSON_PRETTY_PRINT);
     exit;
 }
 
