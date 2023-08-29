@@ -18,7 +18,7 @@ $token = $_SERVER["HTTP_AUTHORIZATION"];
 if (strlen($token) != 64) error(400);
 if (substr($token, 0, 9) != "chatflow-") error(400);
 $token = $sql->escape($token);
-extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token` FROM `tokens` WHERE `token` = '$token'"));
+extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token` FROM `api_tokens` WHERE `token` = '$token'"));
 if (!$valid) error(401);
 if (!$token_id) error(401);
 if (!isset($json_input["session"])) error(400);
