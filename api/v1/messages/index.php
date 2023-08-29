@@ -61,7 +61,6 @@ if ($stream) {
 
 function error($code, $message = null)
 {
-    http_response_code($code);
     header('Content-Type: application/json; charset=utf-8');
     $result = [];
     $result["result"] = "error";
