@@ -12,12 +12,13 @@
     <style>
         .container {
             display: flex;
-            justify-content: center;
+            align-content: center;
         }
 
         .playground-card {
             width: 100%;
             max-width: 800px;
+            height: 100%;
         }
     </style>
 </head>
