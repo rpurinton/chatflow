@@ -35,8 +35,9 @@
             height: 100%;
         }
 
-        #submitButton {
+        .btn {
             margin-bottom: 0.5rem;
+            max-width: 150px;
         }
     </style>
 </head>
