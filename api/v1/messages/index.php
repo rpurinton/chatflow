@@ -1,9 +1,23 @@
 <?php
+
+use GuzzleHttp\Promise\Is;
+
 $response = [];
 if ($_SERVER["REQUEST_METHOD"] != "POST") error(400);
 $json_string_input = file_get_contents("php://input");
 if (!$json_string_input) error(400);
 if (!($json_input = json_decode($json_string_input, true))) error(400);
+
+
+$stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
+if ($stream) {
+    header('Content-Type: plain/text; charset=utf-8');
+    for ($i = 0; $i < 10; $i++) {
+        pad_echo("$i...");
+        sleep(1);
+    }
+}
+
 try {
     require_once(__DIR__ . "/../../../SqlClient.php");
     $sql = new RPurinton\ChatFlow\SqlClient();
@@ -59,4 +73,11 @@ function error($code)
     header('Content-Type: application/json; charset=utf-8');
     include(__DIR__ . "/../../errordocs/$code.json");
     exit;
+}
+
+function pad_echo($str)
+{
+    echo (str_pad($str, 2048, "\0"));
+    flush();
+    @ob_flush();
 }
