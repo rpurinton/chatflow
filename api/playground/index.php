@@ -49,7 +49,7 @@
                         <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow API Token">
                     </div>
                     <div class="mb-3">
-                        <label for="apiData" class="form-label">API Data</label>
+                        <label for="apiData" class="form-label">API Request</label>
                         <textarea class="form-control" id="apiData" rows="7"></textarea>
                     </div>
                     <div class="mb-3">
