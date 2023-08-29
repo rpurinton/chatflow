@@ -20,6 +20,12 @@
             max-width: 800px;
             height: 100%;
         }
+
+        #apiForm {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+        }
     </style>
 </head>
 
