@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
     <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
         .playground-card {
-            width: calc(100% - 40px);
+            width: 100%;
             max-width: 800px;
-            margin: 20px auto;
-            height: calc(100% - 40px);
         }
     </style>
 </head>
