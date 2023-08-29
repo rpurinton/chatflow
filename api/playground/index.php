@@ -10,20 +10,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
     <style>
-        .container {
-            display: flex;
-            align-content: center;
-        }
-
         .playground-card {
             width: 100%;
             max-width: 800px;
             height: 100%;
         }
 
-        #apiForm {
-            flex-grow: 1;
-            height: 100%;
+        .flex {
             display: flex;
             flex-direction: column;
             align-content: center;
@@ -36,14 +29,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="card playground-card">
-            <div class="card-header">
+    <div class="container flex">
+        <div class="card playground-card flex">
+            <div class="card-header flex">
                 <img src='/assets/images/icon.png' width="24" height="24" class="d-inline-block align-top" alt="">
                 ChatFlow Playground
             </div>
-            <div class="card-body flex-grow">
-                <form id="apiForm">
+            <div class="card-body flex flex-grow">
+                <form id="apiForm" class="flex flex-grow">
                     <div class="mb-3">
                         <label for="apiEndpoint" class="form-label">Endpoint</label>
                         <select class="form-select" id="apiEndpoint">
@@ -54,13 +47,13 @@
                         <label for="apiToken" class="form-label">Token</label>
                         <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow Token">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 flex-grow">
                         <label for="apiData" class="form-label">Request</label>
                         <textarea class="form-control flex-grow" id="apiData"></textarea>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 flex-grow">
                         <label for="apiResponse" class="form-label">Response</label>
-                        <textarea class="form-control" id="apiResponse" readonly></textarea>
+                        <textarea class="form-control flex-grow" id="apiResponse" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
