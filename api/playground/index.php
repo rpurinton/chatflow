@@ -26,6 +26,10 @@
             flex-direction: column;
             align-content: center;
         }
+
+        .flex-grow {
+            flex-grow: 1;
+        }
     </style>
 </head>
 
@@ -50,11 +54,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="apiData" class="form-label">API Request</label>
-                        <textarea class="form-control" id="apiData" rows="6"></textarea>
+                        <textarea class="form-control flex-grow" id="apiData"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="apiResponse" class="form-label">API Response</label>
-                        <textarea class="form-control" id="apiResponse" rows="6" readonly></textarea>
+                        <textarea class="form-control" id="apiResponse" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
