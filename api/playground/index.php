@@ -43,11 +43,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="apiData" class="form-label">API Data</label>
-                        <textarea class="form-control" id="apiData" rows="20"></textarea>
+                        <textarea class="form-control" id="apiData" rows="10"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="apiResponse" class="form-label">API Response</label>
-                        <textarea class="form-control" id="apiResponse" rows="20" readonly></textarea>
+                        <textarea class="form-control" id="apiResponse" rows="10" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
