@@ -20,7 +20,7 @@
         // Add JavaScript code to handle the login functionality here
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            // Perform the login logic here (e.g., validate credentials, make API requests)
+            // Perform the login logic here (e.g., validate credentials, make requests)
             // Redirect to the appropriate page if login is successful
         });
     </script>

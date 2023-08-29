@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Playground</title>
+    <title>Playground</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
     <style>
@@ -38,26 +38,26 @@
         <div class="card playground-card">
             <div class="card-header">
                 <img src='/assets/images/icon.png' width="32" height="32" class="d-inline-block align-top" alt="">
-                ChatFlow API Playground
+                ChatFlow Playground
             </div>
             <div class="card-body">
                 <form id="apiForm">
                     <div class="mb-3">
-                        <label for="apiEndpoint" class="form-label">API Endpoint</label>
+                        <label for="apiEndpoint" class="form-label">Endpoint</label>
                         <select class="form-select" id="apiEndpoint">
                             <option value="/api/v1/messages/">/api/v1/messages/</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="apiToken" class="form-label">API Token</label>
-                        <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow API Token">
+                        <label for="apiToken" class="form-label">Token</label>
+                        <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow Token">
                     </div>
                     <div class="mb-3">
-                        <label for="apiData" class="form-label">API Request</label>
+                        <label for="apiData" class="form-label">Request</label>
                         <textarea class="form-control flex-grow" id="apiData"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="apiResponse" class="form-label">API Response</label>
+                        <label for="apiResponse" class="form-label">Response</label>
                         <textarea class="form-control" id="apiResponse" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
