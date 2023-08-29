@@ -1,5 +1,5 @@
 {
     "result": "error",
     "code": 401,
-    "message": "Unauthorized"
+    "error": "Unauthorized"
 }

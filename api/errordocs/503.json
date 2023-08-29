@@ -1,5 +1,5 @@
 {
     "result": "error",
     "code": 503,
-    "message": "Service Unavailable"
+    "error": "Service Unavailable"
 }

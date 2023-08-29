@@ -1,5 +1,5 @@
 {
     "result": "error",
     "code": 500,
-    "message": "Internal Server Error"
+    "error": "Internal Server Error"
 }

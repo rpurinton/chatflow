@@ -1,5 +1,5 @@
 {
     "result": "error",
     "code": 404,
-    "message": "Not Found"
+    "error": "Not Found"
 }
