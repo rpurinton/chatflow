@@ -49,16 +49,13 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="apiToken" class="form-label">Token</label>
-                        <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow Token">
+                        <input type="text" class="form-control" id="apiToken" placeholder="Enter a ChatFlow Token here">
                     </div>
                     <div class="mb-3 flex-grow">
-                        <label for="apiData" class="form-label">Request</label>
                         <textarea class="form-control flex-grow" id="apiData"></textarea>
                     </div>
                     <div class="mb-3 flex-grow">
-                        <label for="apiResponse" class="form-label">Response</label>
-                        <textarea class="form-control" id="apiResponse" readonly></textarea>
+                        <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
