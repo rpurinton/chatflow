@@ -1,5 +1,5 @@
 <?php
-
+if (!isset($_SERVER["HTTP_AUTHORIZATION"])) error(400, "No token specified. You must specify a token in the HTTP Authorization header.");
 $token = $_SERVER["HTTP_AUTHORIZATION"];
 if (strlen($token) != 64) error(400, "Invalid token length. Must be 64 characters.");
 if (substr($token, 0, 9) != "chatflow-") error(400, "Invalid token prefix. Must be 'chatflow-...'.");
