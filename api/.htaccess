@@ -1,6 +1,6 @@
-ErrorDocument 400 /errordocs/400.json
-ErrorDocument 401 /errordocs/401.json
-ErrorDocument 403 /errordocs/403.json
-ErrorDocument 404 /errordocs/404.json
-ErrorDocument 500 /errordocs/500.json
-ErrorDocument 503 /errordocs/503.json
+ErrorDocument 400 ./errordocs/400.json
+ErrorDocument 401 ./errordocs/401.json
+ErrorDocument 403 ./errordocs/403.json
+ErrorDocument 404 ./errordocs/404.json
+ErrorDocument 500 ./errordocs/500.json
+ErrorDocument 503 ./errordocs/503.json
