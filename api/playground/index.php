@@ -24,7 +24,7 @@
                     <div class="mb-3">
                         <label for="apiEndpoint" class="form-label">API Endpoint</label>
                         <select class="form-select" id="apiEndpoint">
-                            <option value="/api/v1/messages">/api/v1/messages</option>
+                            <option value="/api/v1/messages/">/api/v1/messages/</option>
                         </select>
                     </div>
                     <div class="mb-3">
