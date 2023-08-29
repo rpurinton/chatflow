@@ -56,6 +56,7 @@
                 var apiToken = document.getElementById('apiToken').value;
                 var apiData = document.getElementById('apiData').value;
                 var apiResponse = document.getElementById('apiResponse');
+                apiResponse.value = "Loading...";
 
                 fetch(apiEndpoint, {
                         method: 'POST',
