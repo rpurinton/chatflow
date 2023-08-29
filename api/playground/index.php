@@ -22,6 +22,7 @@
         }
 
         #apiForm {
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-content: center;
