@@ -34,6 +34,10 @@
         #apiResponse {
             height: 100%;
         }
+
+        #submitButton {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 
