@@ -3,11 +3,10 @@ html {
 }
 
 body {
-    background-color: #222;
+    background-color: rgb(242, 242, 242);
     background-image: url('/assets/images/background.png');
-    background-size: cover;
-    background-position: left;
-    color: #fff;
+    background-size: 100% 100%;
+    color: rgb(20, 20, 20);
     height: 100%;
 }
 
