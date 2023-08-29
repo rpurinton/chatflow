@@ -13,14 +13,6 @@
 
 <body>
     <div class="container">
-        <!-- Add a Bootstrap card to contain the API playgound which will have
-        1. A dropdown box to select the API endpoint (currently only option is /api/v1/messages)
-        2. A text field to input their API token (which will be used as a bearer token later)
-        3. A text area to enter JSON data to send to the API endpoint
-        4. A text area to display the response from the API endpoint
-        5. A button to send the request to the API endpoint
-        6. A button to clear both text areas
-        -->
         <div class="card">
             <div class="card-header">
                 API Playground
@@ -45,18 +37,19 @@
                         <label for="apiResponse" class="form-label">API Response</label>
                         <textarea class="form-control" id="apiResponse" rows="3" readonly></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Request</button>
-                    <button type="button" class="btn btn-secondary">Clear</button>
+                    <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
+                    <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
                 </form>
             </div>
 
         </div>
 
         <script>
-            // Add JavaScript code to handle the API playground functionality here
             document.getElementById('apiForm').addEventListener('submit', function(event) {
                 event.preventDefault();
-                // make the ajax request and display the response
+            });
+
+            document.getElementById('submitButton').addEventListener('click', function(event) {
                 var apiEndpoint = document.getElementById('apiEndpoint').value;
                 var apiToken = document.getElementById('apiToken').value;
                 var apiData = document.getElementById('apiData').value;
@@ -67,6 +60,14 @@
                         apiResponse.value = this.responseText;
                     }
                 };
+                xhttp.open("POST", apiEndpoint, true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.setRequestHeader("Authorization", apiToken);
+                xhttp.send(apiData);
+            });
+            document.getElementById('clearButton').addEventListener('click', function(event) {
+                document.getElementById('apiData').value = "";
+                document.getElementById('apiResponse').value = "";
             });
         </script>
 </body>
