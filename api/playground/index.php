@@ -33,7 +33,8 @@
     <div class="container">
         <div class="card playground-card">
             <div class="card-header">
-                API Playground
+                <img src='/assets/images/icon.png' width="32" height="32" class="d-inline-block align-top" alt="">
+                ChatFlow API Playground
             </div>
             <div class="card-body">
                 <form id="apiForm">
@@ -45,7 +46,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="apiToken" class="form-label">API Token</label>
-                        <input type="text" class="form-control" id="apiToken" placeholder="Enter API Token">
+                        <input type="text" class="form-control" id="apiToken" placeholder="Enter ChatFlow API Token">
                     </div>
                     <div class="mb-3">
                         <label for="apiData" class="form-label">API Data</label>
@@ -59,7 +60,9 @@
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
                 </form>
             </div>
-
+            <div class="card-footer text-muted">
+                ChatFlow &copy; 2023. All rights reserved.
+            </div>
         </div>
 
         <script>
