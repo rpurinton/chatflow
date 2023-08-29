@@ -26,6 +26,10 @@
             flex-grow: 1;
         }
 
+        .flex-row {
+            flex-direction: row;
+        }
+
         #apiData,
         #apiResponse {
             height: 100%;
@@ -36,7 +40,7 @@
 <body>
     <div class="container flex">
         <div class="card playground-card flex">
-            <div class="card-header flex">
+            <div class="card-header flex flex-row">
                 <img src='/assets/images/icon.png' width="24" height="24" class="d-inline-block align-top" alt="">
                 ChatFlow Playground
             </div>
