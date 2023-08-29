@@ -22,6 +22,7 @@
         }
 
         #apiForm {
+            flex-grow: 1;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -41,7 +42,7 @@
                 <img src='/assets/images/icon.png' width="24" height="24" class="d-inline-block align-top" alt="">
                 ChatFlow Playground
             </div>
-            <div class="card-body">
+            <div class="card-body flex-grow">
                 <form id="apiForm">
                     <div class="mb-3">
                         <label for="apiEndpoint" class="form-label">Endpoint</label>
