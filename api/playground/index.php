@@ -66,8 +66,10 @@
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
                     </div>
-                    <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
-                    <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
+                    <div class="mb-3 flex-row">
+                        <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
+                        <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
+                    </div>
                 </form>
             </div>
             <div class="card-footer text-muted">
