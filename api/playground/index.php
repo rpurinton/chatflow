@@ -56,17 +56,18 @@
                 var apiToken = document.getElementById('apiToken').value;
                 var apiData = document.getElementById('apiData').value;
                 var apiResponse = document.getElementById('apiResponse');
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4) {
-                        apiResponse.value = this.responseText;
+                // use HTTPS
+                var apiURL = "https://chatflow.discommand.com" + apiEndpoint;
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", apiURL, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.setRequestHeader("Authorization", apiToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        apiResponse.value = xhr.responseText;
                     }
                 };
-                // use HTTPS
-                xhttp.open("POST", "https://<?= $_SERVER["HTTP_HOST"] ?>" + apiEndpoint, true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.setRequestHeader("Authorization", apiToken);
-                xhttp.send(apiData);
+                xhr.send(apiData);
             });
             document.getElementById('clearButton').addEventListener('click', function(event) {
                 document.getElementById('apiData').value = "";
