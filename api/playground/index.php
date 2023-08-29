@@ -49,10 +49,10 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="apiToken" placeholder="Enter a ChatFlow Token here">
+                        <input type="text" class="form-control" id="apiToken" placeholder="Enter a ChatFlow Token here...">
                     </div>
                     <div class="mb-3 flex-grow">
-                        <textarea class="form-control flex-grow" id="apiData"></textarea>
+                        <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
                     </div>
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
