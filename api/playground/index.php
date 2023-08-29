@@ -25,6 +25,11 @@
         .flex-grow {
             flex-grow: 1;
         }
+
+        #apiData,
+        #apiResponse {
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -53,7 +58,7 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <label for="apiResponse" class="form-label">Response</label>
-                        <textarea class="form-control flex-grow" id="apiResponse" readonly></textarea>
+                        <textarea class="form-control" id="apiResponse" readonly></textarea>
                     </div>
                     <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                     <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
