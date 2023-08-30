@@ -9,7 +9,7 @@
     <title>Playground</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/default.min.css">
+    <link rel="stylesheet" href="/assets/css/github-dark.min.css">
     <style>
         .playground-card {
             width: 100%;
@@ -78,7 +78,8 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/ajv@8.6.2/dist/ajv.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/highlight.min.js"></script>
+        <script src="/assets/js/highlight.min.js"></script>
+        <script src="/assets/js/json.min.js"></script>
         <script>
             document.getElementById('apiForm').addEventListener('submit', function(event) {
                 event.preventDefault();
