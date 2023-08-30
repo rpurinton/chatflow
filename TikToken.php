@@ -7,7 +7,7 @@ require_once(__DIR__ . "/vendor/autoload.php");
 class TikToken
 {
     private $encoder;
-    public function __construct($api_key)
+    public function __construct()
     {
         $this->encoder = new \TikToken\Encoder();
     }
