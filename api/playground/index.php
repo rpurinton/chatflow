@@ -62,6 +62,7 @@
             z-index: 1;
             white-space: pre-wrap;
             padding: 10px;
+            border-radius: 10px;
         }
     </style>
 </head>
