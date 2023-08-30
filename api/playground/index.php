@@ -91,7 +91,7 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop">
-                            <div id="underlay" class="form-control flex-grow highlights1">This is Highlights1</div>
+                            <div id="underlay" class="form-control flex-grow highlights">This is Highlights1</div>
                             <textarea class="form-control flex-grow highlights" id="apiData" placeholder="Enter Request JSON here..."></textarea>
                         </div>
                     </div>
