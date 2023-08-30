@@ -63,7 +63,9 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
-                        <p id="apiDataError">JSON Validator Ready!</p>
+                    </div>
+                    <div class="mb-3">
+                        <p id="apiDataError">✅ JSON Validator Ready!</p>
                     </div>
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
