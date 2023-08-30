@@ -34,11 +34,32 @@
         #apiData,
         #apiResponse {
             height: 100%;
+            z-index: 2;
         }
 
         .btn {
             margin-bottom: 0.5rem;
             max-width: 150px;
+        }
+
+        .backdrop1,
+        .backdrop2 {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .highlights1,
+        .highlights2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            z-index: 1;
         }
     </style>
 </head>
@@ -62,12 +83,18 @@
                         <input type="text" class="form-control" id="apiToken" placeholder="Enter a ChatFlow Token here...">
                     </div>
                     <div class="mb-3 flex-grow">
+                        <div class="backdrop1">
+                            <div class="highlights1">This is Highlights1</div>
+                        </div>
                         <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
                     </div>
                     <div class="mb-3">
                         <p id="apiDataError">✅ JSON Validator Ready!</p>
                     </div>
                     <div class="mb-3 flex-grow">
+                        <div class="backdrop2">
+                            <div class="highlights2">This is Highlights2</div>
+                        </div>
                         <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
                     </div>
                     <div class="mb-3 flex-row">
