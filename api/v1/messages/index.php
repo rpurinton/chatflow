@@ -21,7 +21,7 @@ try {
 
 // Continue to Validate the token
 $token = $sql->escape($token);
-extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token` FROM `api_tokens` WHERE `token` = '$token'"));
+extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token`, `user_id` FROM `api_tokens` WHERE `token` = '$token'"));
 if (!$valid) error(401, "Invalid token. Check your token and try again.");
 if (!$token_id) error(401, "Invalid token. Check your token and try again.");
 
@@ -46,46 +46,94 @@ if ($json_input["session"] == "new") {
     if (!isset($json_input["collection"])) error(400, "No collection specified. You must specify a collection ID or 'new' to create a new collection.");
     if ($json_input["collection"] == "new") {
         // Create a new collection
-        $sql->query("INSERT INTO `collections` () VALUES ()");
-        $collection_id = $sql->insert_id();
-        $sql->query("INSERT INTO `collections_api_tokens` (`collection_id`, `token_id`) VALUES ('$collection_id', '$token_id')");
-        $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
-        $session_id = $sql->insert_id();
+        try {
+            if (!isset($json_input["collection_config"])) error(400, "No collection config specified. You must specify a collection config.");
+            $collection_config = $json_input["collection_config"];
+            if (!is_array($collection_config)) error(400, "Invalid collection config. Must be an array.");
+            $collection_name = isset($collection_config["name"]) ? $sql->escape($collection_config["name"]) : null;
+            $sql->query("INSERT INTO `collections` (`collection_name`,`user_id`) VALUES ('$collection_name','$user_id')");
+            $collection_id = $sql->insert_id();
+            $response["collection_id"] = $collection_id;
+            $sql->query("INSERT INTO `collections_api_tokens` (`collection_id`, `token_id`) VALUES ('$collection_id', '$token_id')");
+            // if key_id isset
+            if (isset($collection_config["key_id"])) {
+                $key_id = $sql->escape($collection_config["key_id"]);
+                $sql->query("UPDATE `collections` SET `key_id` = '$key_id' WHERE `collection_id` = '$collection_id'");
+            }
+            if (isset($collection_config["model"])) {
+                $model = $sql->escape($collection_config["model"]);
+                $sql->query("UPDATE `collections` SET `model` = '$model' WHERE `collection_id` = '$collection_id'");
+            }
+            if (isset($collection_config["temperature"])) {
+                $temperature = $sql->escape($collection_config["temperature"]);
+                $sql->query("UPDATE `collections` SET `temperature` = '$temperature' WHERE `collection_id` = '$collection_id'");
+            }
+            // if max_tokens
+            if (isset($collection_config["max_tokens"])) {
+                $max_tokens = $sql->escape($collection_config["max_tokens"]);
+                $sql->query("UPDATE `collections` SET `max_tokens` = '$max_tokens' WHERE `collection_id` = '$collection_id'");
+            }
+            // if top_p
+            if (isset($collection_config["top_p"])) {
+                $top_p = $sql->escape($collection_config["top_p"]);
+                $sql->query("UPDATE `collections` SET `top_p` = '$top_p' WHERE `collection_id` = '$collection_id'");
+            }
+            // if frequency_penalty
+            if (isset($collection_config["frequency_penalty"])) {
+                $frequency_penalty = $sql->escape($collection_config["frequency_penalty"]);
+                $sql->query("UPDATE `collections` SET `frequency_penalty` = '$frequency_penalty' WHERE `collection_id` = '$collection_id'");
+            }
+            // if presence_penalty
+            if (isset($collection_config["presence_penalty"])) {
+                $presence_penalty = $sql->escape($collection_config["presence_penalty"]);
+                $sql->query("UPDATE `collections` SET `presence_penalty` = '$presence_penalty' WHERE `collection_id` = '$collection_id'");
+            }
+            // if stop_sequence
+            if (isset($collection_config["stop_sequence"])) {
+                $stop_sequence = $sql->escape($collection_config["stop_sequence"]);
+                $sql->query("UPDATE `collections` SET `stop_sequence` = '$stop_sequence' WHERE `collection_id` = '$collection_id'");
+            }
+            extract($sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'"));
+            $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
+            $session_id = $sql->insert_id();
+            $resposne["session_id"] = $session_id;
+        } catch (\Exception $e) {
+            error(500, $e->getMessage());
+        } catch (\Error $e) {
+            error(500, $e->getMessage());
+        } catch (\Throwable $e) {
+            error(500, $e->getMessage());
+        }
     } else {
         // Use an existing collection
         $collection_id = $json_input["collection"];
         if (!is_numeric($collection_id)) error(400, "Invalid collection ID. Must be numeric.");
-        extract($sql->single("SELECT count(1) as `valid` FROM `collections` WHERE `collection_id` = '$collection_id'"));
-        if (!$valid) error(400, "Invalid collection ID. Check your collection ID and try again.");
         extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
-        if (!$valid) error(401, "Invalid token for this collection. Check your token and try again.");
+        if (!$valid) error(401, "Invalid token for this collection. Check your token and collection IDs and try again.");
+        extract($sql->single("SELECT count(1) as `valid`,* FROM `collections` WHERE `collection_id` = '$collection_id'"));
+        if (!$valid) error(400, "Invalid collection ID. Check your collection ID and try again.");
         $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
         $session_id = $sql->insert_id();
+        $response["session_id"] = $session_id;
     }
-    $collection_id = $json_input["collection"];
-    if (!is_numeric($collection_id)) error(400, "Invalid collection ID. Must be numeric.");
-    extract($sql->single("SELECT count(1) as `valid` FROM `collections` WHERE `collection_id` = '$collection_id'"));
-    if (!$valid) error(400, "Invalid collection ID. Check your collection ID and try again.");
-    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
-    if (!$valid) error(401, "Invalid token for this collection. Check your token and try again.");
-    $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
-    $session_id = $sql->insert_id();
 } else {
     $session_id = $json_input["session"];
     if (!is_numeric($session_id)) error(400, "Invalid session ID. Must be numeric.");
-    extract($sql->single("SELECT count(1) as `valid` FROM `sessions` WHERE `session_id` = '$session_id'"));
+    extract($sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '$session_id'"));
     if (!$valid) error(400, "Invalid session ID. Check your session ID and try again.");
-    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = (SELECT `collection_id` FROM `sessions` WHERE `session_id` = '$session_id') AND `token_id` = '$token_id'"));
+    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
     if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
 }
-
-$stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
-if ($stream) {
-    header('Content-Type: plain/text; charset=utf-8');
-    echo ("Starting stream test...\n");
-    for ($i = 0; $i < 10; $i++) {
-        pad_echo("$i...");
-        sleep(1);
+$passthru = isset($json_input["passthru"]) && $json_input["passthru"] === true ? true : false;
+if ($passthru) {
+    $stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
+    if ($stream) {
+        header('Content-Type: plain/text; charset=utf-8');
+        echo ("Starting stream test...\n");
+        for ($i = 0; $i < 10; $i++) {
+            pad_echo("$i...");
+            sleep(1);
+        }
     }
 } else {
     $response["result"] = "ok";
