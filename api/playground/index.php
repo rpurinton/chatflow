@@ -65,20 +65,20 @@
             background-color: transparent;
             color: transparent;
             caret-color: transparent;
-            animation: caretBlink 0.5s infinite;
+            animation: caretBlink 1s infinite;
         }
 
         @keyframes caretBlink {
             0% {
-                caret-color: #fff;
-            }
-
-            50% {
                 caret-color: transparent;
             }
 
-            100% {
+            50% {
                 caret-color: #fff;
+            }
+
+            100% {
+                caret-color: transparent;
             }
         }
 
