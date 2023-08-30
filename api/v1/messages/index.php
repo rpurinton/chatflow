@@ -19,14 +19,14 @@ try {
     error(500, $e->getMessage());
 }
 
-require_once(__DIR__ . "/../../../TikToken.php");
-$encoder = new RPurinton\ChatFlow\TikToken();
-
 // Continue to Validate the token
 $token = $sql->escape($token);
 extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token`, `user_id` FROM `api_tokens` WHERE `token` = '$token'"));
 if (!$valid) error(401, "Invalid token. Check your token and try again.");
 if (!$token_id) error(401, "Invalid token. Check your token and try again.");
+
+// save the user config
+$user_config = $sql->single("SELECT * FROM `users` WHERE `user_id` = '$user_id'");
 
 // Continue to Validate the request
 $response = [];
@@ -40,6 +40,11 @@ $json_string_input = file_get_contents("php://input");
 // Validate the JSON string
 if (!$json_string_input) error(400, "No input data. You must POST a valid JSON string in the body.");
 if (!($json_input = json_decode($json_string_input, true))) error(400, "The string in body cannot be decoded as JSON. Check your syntax and try again.");
+
+// we may need to count tokens from this point on...
+require_once(__DIR__ . "/../../../TikToken.php");
+$encoder = new RPurinton\ChatFlow\TikToken();
+
 
 // Validate the session
 if (!isset($json_input["session"])) error(400, "No session specified. You must specify a session ID or 'new' to create a new session.");
@@ -192,13 +197,63 @@ if ($json_input["session"] == "new") {
 } else {
     $session_id = $json_input["session"];
     if (!is_numeric($session_id)) error(400, "Invalid session ID. Must be numeric.");
-    $session_config = $sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '$session_id'");
-    if (!$session_config) error(400, "Invalid session ID. Check your session ID and try again.");
-    $collection_id = $session_config["collection_id"];
-    extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
-    if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
+    try {
+        $session_config = $sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '$session_id'");
+        if (!$session_config) error(400, "Invalid session ID. Check your session ID and try again.");
+        if (isset($json_input["session_config"])) {
+            $session_config = $json_input["session_config"];
+            if (!is_array($session_config)) error(400, "Invalid session config. Must be an array.");
+            // if key_id isset
+            if (isset($session_config["key_id"])) {
+                $key_id = $sql->escape($session_config["key_id"]);
+                $sql->query("UPDATE `sessions` SET `key_id` = '$key_id' WHERE `session_id` = '$session_id'");
+            }
+            // if model
+            if (isset($session_config["model"])) {
+                $model = $sql->escape($session_config["model"]);
+                $sql->query("UPDATE `sessions` SET `model` = '$model' WHERE `session_id` = '$session_id'");
+            }
+            // if max_tokens
+            if (isset($session_config["max_tokens"])) {
+                $max_tokens = $sql->escape($session_config["max_tokens"]);
+                $sql->query("UPDATE `sessions` SET `max_tokens` = '$max_tokens' WHERE `session_id` = '$session_id'");
+            }
+            // if top_p
+            if (isset($session_config["top_p"])) {
+                $top_p = $sql->escape($session_config["top_p"]);
+                $sql->query("UPDATE `sessions` SET `top_p` = '$top_p' WHERE `session_id` = '$session_id'");
+            }
+            // if frequency_penalty
+            if (isset($session_config["frequency_penalty"])) {
+                $frequency_penalty = $sql->escape($session_config["frequency_penalty"]);
+                $sql->query("UPDATE `sessions` SET `frequency_penalty` = '$frequency_penalty' WHERE `session_id` = '$session_id'");
+            }
+            // if presence_penalty
+            if (isset($session_config["presence_penalty"])) {
+                $presence_penalty = $sql->escape($session_config["presence_penalty"]);
+                $sql->query("UPDATE `sessions` SET `presence_penalty` = '$presence_penalty' WHERE `session_id` = '$session_id'");
+            }
+            // if stop_sequence
+            if (isset($session_config["stop_sequence"])) {
+                $stop_sequence = $sql->escape($session_config["stop_sequence"]);
+                $sql->query("UPDATE `sessions` SET `stop_sequence` = '$stop_sequence' WHERE `session_id` = '$session_id'");
+            }
+            $session_config = $sql->single("SELECT * FROM `sessions` WHERE `session_id` = '$session_id'");
+        }
+        $collection_id = $session_config["collection_id"];
+        extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
+        if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
+        $collection_config = $sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'");
+    } catch (\Exception $e) {
+        error(500, $e->getMessage());
+    } catch (\Error $e) {
+        error(500, $e->getMessage());
+    } catch (\Throwable $e) {
+        error(500, $e->getMessage());
+    }
 }
 
+// save any new messages
 if (isset($json_input["messages"])) {
     if (!is_array($json_input["messages"])) error(400, "Invalid messages object. Must be an array.");
     foreach ($json_input["messages"] as $message) {
@@ -228,6 +283,30 @@ if (isset($json_input["messages"])) {
 $passthru = isset($json_input["passthru"]) && $json_input["passthru"] === true ? true : false;
 if ($passthru) {
     require_once(__DIR__ . "/../../../OpenAIClient.php");
+    switch (true) {
+        case isset($json_input["key"]):
+            $key = $json_input["key"];
+            if (!is_String($key) || strlen($key) != 51) error(400, "Invalid key length. Must be a string 51 characters.");
+            //save the new key in the db
+            $sql_key = $sql->escape($key);
+            $key_id = $sql->insert("INSERT INTO `chatgpt_api_keys` (`user_id`,`key`) VALUES ('$user_id','$sql_key')");
+            break;
+        case isset($session_config["key_id"]):
+            $key_id = $session_config["key_id"];
+            break;
+        case isset($collection_config["key_id"]):
+            $key_id = $collection_config["key_id"];
+            break;
+        case isset($user_config["key_id"]):
+            $key_id = $user_config["key_id"];
+            break;
+    }
+    if (!isset($key_id)) error(400, "No key specified. You must specify a key.");
+    $key_result = $sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '$key_id' AND `user_id` = '$user_id'");
+
+    if (!$key_result) error(400, "Invalid key. Check your key and try again.");
+    $openai = new RPurinton\ChatFlow\OpenAIClient($key_result["key"]);
+
     $stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
     if ($stream) {
         header('Content-Type: plain/text; charset=utf-8');
@@ -272,7 +351,6 @@ if ($passthru) {
 } else {
     header('Content-Type: application/json; charset=utf-8');
     $response["result"] = "ok";
-    $response["session"] = $session_id;
     echo json_encode($response, JSON_PRETTY_PRINT);
 }
 
