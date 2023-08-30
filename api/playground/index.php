@@ -156,11 +156,14 @@
                                 if (done) {
                                     apiResponse.innerHTML = responseText.replace(/\0/g, '');
                                     hljs.highlightElement(apiResponse);
+                                    apiResponse.scrollTop = apiResponse.scrollHeight;
                                     return;
                                 }
                                 responseText += decoder.decode(value);
                                 responseText = responseText.replace(/\0/g, '');
-                                apiResponse.value = responseText;
+                                apiResponse.innerHTML = responseText;
+                                hljs.highlightElement(apiResponse);
+                                apiResponse.scrollTop = apiResponse.scrollHeight;
                                 return read();
                             });
                         }
