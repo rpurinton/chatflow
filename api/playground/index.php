@@ -61,6 +61,7 @@
             pointer-events: none;
             z-index: 1;
             white-space: pre-wrap;
+            padding: 10px;
         }
     </style>
 </head>
