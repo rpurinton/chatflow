@@ -239,6 +239,34 @@ if ($passthru) {
     } else {
         header('Content-Type: application/json; charset=utf-8');
         $response["result"] = "ok";
+        $text = "This is a test of the passthru feature.";
+        $token_count = $encoder->token_count($text);
+        $response["choices"][0]["text"] = $text;
+        $response["choices"][0]["token_count"] = $token_count;
+        try {
+            $sql_text = $sql->escape($text);
+            $sql->query("INSERT INTO `chat_messages` (`session_id`, `role`, `content`, `token_count`) VALUES ('$session_id', 'assistant', '$sql_text', '$token_count')");
+            if (!isset($response["tokens_inserted"])) $response["tokens_inserted"] = $token_count;
+            else $response["tokens_inserted"] += $token_count;
+            if (isset($json_input["return_meta"]) && $json_input["return_meta"] === true) {
+                $message_id = $sql->insert_id();
+                extract($sql->single("SELECT `created_at` FROM `collection_messages` WHERE `message_id` = '$message_id'"));
+                $response["meta"][] = [
+                    "message_id" => $message_id,
+                    "session_id" => $session_id,
+                    "role" => "assistant",
+                    "content" => $text,
+                    "token_count" => $token_count,
+                    "created_at" => $created_at
+                ];
+            }
+        } catch (\Exception $e) {
+            error(500, $e->getMessage());
+        } catch (\Error $e) {
+            error(500, $e->getMessage());
+        } catch (\Throwable $e) {
+            error(500, $e->getMessage());
+        }
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 } else {

@@ -19,6 +19,6 @@
         "max_tokens": 256
     },
     "session": "new",
-    "return_meta": true,
+    "return_meta": false,
     "passthru": true
 }
