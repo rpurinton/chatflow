@@ -64,6 +64,7 @@
             z-index: 2;
             background-color: transparent;
             color: transparent;
+            caret-color: #fff;
         }
 
         #underlay {
