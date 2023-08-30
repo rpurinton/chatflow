@@ -154,9 +154,9 @@
                 hljs.highlightElement(underlay);
             });
 
-            inputBox.addEventListener('scroll') = function(event) {
+            inputBox.addEventListener('scroll', function(event) {
                 underlay.scrollTop = inputBox.scrollTop;
-            }
+            });
 
             document.getElementById('submitButton').addEventListener('click', function(event) {
                 var apiEndpoint = document.getElementById('apiEndpoint').value;
