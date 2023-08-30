@@ -69,16 +69,14 @@
         }
 
         @keyframes caretFlash {
-            0% {
+
+            0%,
+            100% {
                 caret-color: #fff;
             }
 
             50% {
                 caret-color: transparent;
-            }
-
-            100% {
-                caret-color: #fff;
             }
         }
 
