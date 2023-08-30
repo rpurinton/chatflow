@@ -150,12 +150,10 @@
                 apiResponse.classList.add('stale');
                 try {
                     JSON.parse(inputBox.value);
-                    // get the current caret position and scrollpositions so we can restore it after
                     var start = inputBox.selectionStart;
                     var end = inputBox.selectionEnd;
                     var scrollTop = inputBox.scrollTop;
                     inputBox.value = JSON.stringify(JSON.parse(inputBox.value), null, 4);
-                    // restore caret position and scroll position
                     inputBox.selectionStart = start;
                     inputBox.selectionEnd = end;
                     inputBox.scrollTop = scrollTop;
