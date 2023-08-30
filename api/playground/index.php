@@ -93,9 +93,8 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop2">
-                            <div class="highlights2">This is Highlights2</div>
+                            <div class="highlights2" id="apiResponse">Response will appear here...</div>
                         </div>
-                        <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
                     </div>
                     <div class="mb-3 flex-row">
                         <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
@@ -154,7 +153,8 @@
                                 value
                             }) => {
                                 if (done) {
-                                    apiResponse.value = responseText.replace(/\0/g, '');
+                                    apiResponse.innerHTML = responseText.replace(/\0/g, '');
+                                    hljs.highlightElement(apiResponse);
                                     return;
                                 }
                                 responseText += decoder.decode(value);
