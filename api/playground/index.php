@@ -77,7 +77,7 @@
                 ChatFlow &copy; 2023. All rights reserved.
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/ajv@8.6.2/dist/ajv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.12.0/ajv7.min.js" integrity="sha512-U2SW9Ihh3GF6F8gP8QgLS+I244xnM5pFCh3cigpw7bAzUDnKDlxdlFL4kjyXTle8SJl/tJ0gdnwd44Eb3hLG/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/assets/js/highlight.min.js"></script>
         <script src="/assets/js/json.min.js"></script>
         <script>
