@@ -88,6 +88,13 @@
         .hidden {
             display: none;
         }
+
+        #submitButton {
+            margin: 0;
+            padding: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
