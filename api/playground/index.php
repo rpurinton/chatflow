@@ -58,6 +58,15 @@
             font-size: 0.875rem;
             line-height: 1.5;
         }
+
+        #apiData {
+            z-index: 2;
+            opacity: 0.5;
+        }
+
+        #underlay {
+            z-index: 1;
+        }
     </style>
 </head>
 
