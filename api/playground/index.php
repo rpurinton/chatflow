@@ -62,7 +62,8 @@
 
         #apiData {
             z-index: 2;
-            opacity: 0;
+            background-color: transparent;
+            color: transparent;
         }
 
         #underlay {
