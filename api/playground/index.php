@@ -32,8 +32,7 @@
         }
 
         .btn {
-            margin-bottom: 0.5rem;
-            max-width: 150px;
+            width: fit-content;
         }
 
         .backdrop {
@@ -117,9 +116,9 @@
                         </div>
                     </div>
                     <div class="mb-3 flex flex-row">
-                        <div id="apiDataError" class="mb-3 flex flex-row">
+                        <div id="apiDataError" class="mb-3 flex flex-row flex-grow">
                             <p>✅&nbsp;</p>
-                            <p>JSON Validator Ready!</p>
+                            <p class='flex-grow'>JSON Validator Ready!</p>
                         </div>
                         <button type="submit" id="submitButton" class="btn hidden">Send Request</button>
                     </div>
@@ -163,11 +162,11 @@
                     inputBox.selectionStart = start;
                     inputBox.selectionEnd = end;
                     inputBox.scrollTop = scrollTop;
-                    inputError.innerHTML = "<p>✅&nbsp;</p><p>JSON is valid!</p>";
+                    inputError.innerHTML = "<p>✅&nbsp;</p><p class='flex-grow'>JSON is valid!</p>";
                     document.getElementById('submitButton').classList.remove('hidden');
                 } catch (error) {
                     var errorLine = error.message.split('\n')[0];
-                    inputError.innerHTML = "<p>❌&nbsp;</p><p>" + errorLine + "</p>";
+                    inputError.innerHTML = "<p>❌&nbsp;</p><p class='flex-grow'>" + errorLine + "</p>";
                     document.getElementById('submitButton').classList.add('hidden');
                 }
                 underlay.innerHTML = inputBox.value;
