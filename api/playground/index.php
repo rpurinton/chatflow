@@ -116,9 +116,11 @@
                             <textarea class="form-control flex-grow highlights" id="apiData"></textarea>
                         </div>
                     </div>
-                    <div id="apiDataError" class="mb-3 flex flex-row">
-                        <p>✅&nbsp;</p>
-                        <p>JSON Validator Ready!</p>
+                    <div class="mb-3 flex flex-row">
+                        <div id="apiDataError" class="mb-3 flex flex-row">
+                            <p>✅&nbsp;</p>
+                            <p>JSON Validator Ready!</p>
+                        </div>
                         <button type="submit" id="submitButton" class="btn hidden">Send Request</button>
                     </div>
                     <div class="mb-3 flex-grow">
