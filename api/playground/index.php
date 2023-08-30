@@ -177,7 +177,7 @@
                 var apiEndpoint = document.getElementById('apiEndpoint').value;
                 var apiToken = document.getElementById('apiToken').value;
                 var apiData = document.getElementById('apiData').value;
-                var apiResponse = document.getElementById('apiResponse');
+                apiResponse.classList.remove('stale');
                 apiResponse.value = "Loading...";
 
                 fetch(apiEndpoint, {
@@ -197,7 +197,6 @@
                                 done,
                                 value
                             }) => {
-                                apiResponse.classList.remove('stale');
                                 if (done) {
                                     apiResponse.innerHTML = responseText.replace(/\0/g, '');
                                     hljs.highlightElement(apiResponse);
