@@ -62,7 +62,7 @@ input[type="password"]::placeholder {
 
 
 button[type="submit"] {
-    background-color: #fff;
+    background-color: #ccc;
     color: #222;
     font-weight: lighter;
     border: none;
