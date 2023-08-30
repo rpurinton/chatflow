@@ -65,6 +65,21 @@
             background-color: transparent;
             color: transparent;
             caret-color: #fff;
+            animation: caretFlash 1s infinite;
+        }
+
+        @keyframes caretFlash {
+            0% {
+                caret-color: #fff;
+            }
+
+            50% {
+                caret-color: transparent;
+            }
+
+            100% {
+                caret-color: #fff;
+            }
         }
 
         #underlay {
