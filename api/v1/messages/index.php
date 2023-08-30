@@ -93,10 +93,7 @@ if ($json_input["session"] == "new") {
                 $stop_sequence = $sql->escape($collection_config["stop_sequence"]);
                 $sql->query("UPDATE `collections` SET `stop_sequence` = '$stop_sequence' WHERE `collection_id` = '$collection_id'");
             }
-            extract($sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'"));
-            $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
-            $session_id = $sql->insert_id();
-            $response["session_id"] = $session_id;
+            $collection_config = $sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'");
         } catch (\Exception $e) {
             error(500, $e->getMessage());
         } catch (\Error $e) {
@@ -110,22 +107,72 @@ if ($json_input["session"] == "new") {
         if (!is_numeric($collection_id)) error(400, "Invalid collection ID. Must be numeric.");
         extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
         if (!$valid) error(401, "Invalid token for this collection. Check your token and collection IDs and try again.");
-        extract($sql->single("SELECT count(1) as `valid`,* FROM `collections` WHERE `collection_id` = '$collection_id'"));
-        if (!$valid) error(400, "Invalid collection ID. Check your collection ID and try again.");
+        $collection_config = $sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'");
+        if (!$collection_config) error(400, "Invalid collection ID. Check your collection ID and try again.");
+    }
+    try {
         $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
         $session_id = $sql->insert_id();
         $response["session_id"] = $session_id;
+        if (isset($json_input["session_config"])) {
+            $session_config = $json_input["session_config"];
+            if (!is_array($session_config)) error(400, "Invalid session config. Must be an array.");
+            // if key_id isset
+            if (isset($session_config["key_id"])) {
+                $key_id = $sql->escape($session_config["key_id"]);
+                $sql->query("UPDATE `sessions` SET `key_id` = '$key_id' WHERE `session_id` = '$session_id'");
+            }
+            // if model
+            if (isset($session_config["model"])) {
+                $model = $sql->escape($session_config["model"]);
+                $sql->query("UPDATE `sessions` SET `model` = '$model' WHERE `session_id` = '$session_id'");
+            }
+            // if max_tokens
+            if (isset($session_config["max_tokens"])) {
+                $max_tokens = $sql->escape($session_config["max_tokens"]);
+                $sql->query("UPDATE `sessions` SET `max_tokens` = '$max_tokens' WHERE `session_id` = '$session_id'");
+            }
+            // if top_p
+            if (isset($session_config["top_p"])) {
+                $top_p = $sql->escape($session_config["top_p"]);
+                $sql->query("UPDATE `sessions` SET `top_p` = '$top_p' WHERE `session_id` = '$session_id'");
+            }
+            // if frequency_penalty
+            if (isset($session_config["frequency_penalty"])) {
+                $frequency_penalty = $sql->escape($session_config["frequency_penalty"]);
+                $sql->query("UPDATE `sessions` SET `frequency_penalty` = '$frequency_penalty' WHERE `session_id` = '$session_id'");
+            }
+            // if presence_penalty
+            if (isset($session_config["presence_penalty"])) {
+                $presence_penalty = $sql->escape($session_config["presence_penalty"]);
+                $sql->query("UPDATE `sessions` SET `presence_penalty` = '$presence_penalty' WHERE `session_id` = '$session_id'");
+            }
+            // if stop_sequence
+            if (isset($session_config["stop_sequence"])) {
+                $stop_sequence = $sql->escape($session_config["stop_sequence"]);
+                $sql->query("UPDATE `sessions` SET `stop_sequence` = '$stop_sequence' WHERE `session_id` = '$session_id'");
+            }
+        }
+        $session_config = $sql->single("SELECT * FROM `sessions` WHERE `session_id` = '$session_id'");
+    } catch (\Exception $e) {
+        error(500, $e->getMessage());
+    } catch (\Error $e) {
+        error(500, $e->getMessage());
+    } catch (\Throwable $e) {
+        error(500, $e->getMessage());
     }
 } else {
     $session_id = $json_input["session"];
     if (!is_numeric($session_id)) error(400, "Invalid session ID. Must be numeric.");
-    extract($sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '$session_id'"));
-    if (!$valid) error(400, "Invalid session ID. Check your session ID and try again.");
+    $session_config = $sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '$session_id'");
+    if (!$session_config) error(400, "Invalid session ID. Check your session ID and try again.");
+    $collection_id = $session_config["collection_id"];
     extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
     if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
 }
 $passthru = isset($json_input["passthru"]) && $json_input["passthru"] === true ? true : false;
 if ($passthru) {
+    require_once(__DIR__ . "/../../../OpenAIClient.php");
     $stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
     if ($stream) {
         header('Content-Type: plain/text; charset=utf-8');
