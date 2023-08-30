@@ -9,6 +9,7 @@
     <title>Playground</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/dark-theme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/default.min.css">
     <style>
         .playground-card {
             width: 100%;
@@ -76,10 +77,24 @@
                 ChatFlow &copy; 2023. All rights reserved.
             </div>
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/ajv@8.6.2/dist/ajv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/highlight.min.js"></script>
         <script>
             document.getElementById('apiForm').addEventListener('submit', function(event) {
                 event.preventDefault();
+            });
+
+            var inputBox = document.getElementById('apiData');
+            var ajv = new Ajv(); // Create an instance of Ajv
+            inputBox.addEventListener('change', function(event) {
+                hljs.highlightBlock(inputBox);
+                try {
+                    JSON.parse(inputBox.value);
+                    console.log('JSON is valid');
+                } catch (error) {
+                    console.log('JSON is invalid');
+                    console.log(error);
+                }
             });
 
             document.getElementById('submitButton').addEventListener('click', function(event) {
