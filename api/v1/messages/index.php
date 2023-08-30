@@ -283,6 +283,7 @@ if (isset($json_input["messages"])) {
 $passthru = isset($json_input["passthru"]) && $json_input["passthru"] === true ? true : false;
 if ($passthru) {
     require_once(__DIR__ . "/../../../OpenAIClient.php");
+    // decide what key to use
     switch (true) {
         case isset($json_input["key"]):
             $key = $json_input["key"];
@@ -306,6 +307,127 @@ if ($passthru) {
 
     if (!$key_result) error(400, "Invalid key. Check your key and try again.");
     $openai = new RPurinton\ChatFlow\OpenAIClient($key_result["key"]);
+
+    // decide what model to use
+    switch (true) {
+        case isset($json_input["model"]):
+            $model = $json_input["model"];
+            if (!is_string($model)) error(400, "Invalid model. Must be a string.");
+            break;
+        case isset($session_config["model"]):
+            $model = $session_config["model"];
+            break;
+        case isset($collection_config["model"]):
+            $model = $collection_config["model"];
+            break;
+        case isset($user_config["model"]):
+            $model = $user_config["model"];
+            break;
+    }
+    if (!isset($model)) error(400, "No model specified. You must specify a model.");
+
+    // decide what max_tokens to use
+    switch (true) {
+        case isset($json_input["max_tokens"]):
+            $max_tokens = $json_input["max_tokens"];
+            if (!is_numeric($max_tokens)) error(400, "Invalid max_tokens. Must be numeric.");
+            break;
+        case isset($session_config["max_tokens"]):
+            $max_tokens = $session_config["max_tokens"];
+            break;
+        case isset($collection_config["max_tokens"]):
+            $max_tokens = $collection_config["max_tokens"];
+            break;
+        case isset($user_config["max_tokens"]):
+            $max_tokens = $user_config["max_tokens"];
+            break;
+    }
+
+    // decide what top_p to use
+    switch (true) {
+        case isset($json_input["top_p"]):
+            $top_p = $json_input["top_p"];
+            if (!is_numeric($top_p)) error(400, "Invalid top_p. Must be numeric.");
+            break;
+        case isset($session_config["top_p"]):
+            $top_p = $session_config["top_p"];
+            break;
+        case isset($collection_config["top_p"]):
+            $top_p = $collection_config["top_p"];
+            break;
+        case isset($user_config["top_p"]):
+            $top_p = $user_config["top_p"];
+            break;
+    }
+
+    // decide what frequency_penalty to use
+    switch (true) {
+        case isset($json_input["frequency_penalty"]):
+            $frequency_penalty = $json_input["frequency_penalty"];
+            if (!is_numeric($frequency_penalty)) error(400, "Invalid frequency_penalty. Must be numeric.");
+            break;
+        case isset($session_config["frequency_penalty"]):
+            $frequency_penalty = $session_config["frequency_penalty"];
+            break;
+        case isset($collection_config["frequency_penalty"]):
+            $frequency_penalty = $collection_config["frequency_penalty"];
+            break;
+        case isset($user_config["frequency_penalty"]):
+            $frequency_penalty = $user_config["frequency_penalty"];
+            break;
+    }
+
+    // decide what presence_penalty to use
+    switch (true) {
+        case isset($json_input["presence_penalty"]):
+            $presence_penalty = $json_input["presence_penalty"];
+            if (!is_numeric($presence_penalty)) error(400, "Invalid presence_penalty. Must be numeric.");
+            break;
+        case isset($session_config["presence_penalty"]):
+            $presence_penalty = $session_config["presence_penalty"];
+            break;
+        case isset($collection_config["presence_penalty"]):
+            $presence_penalty = $collection_config["presence_penalty"];
+            break;
+        case isset($user_config["presence_penalty"]):
+            $presence_penalty = $user_config["presence_penalty"];
+            break;
+    }
+
+    // decide what stop_sequence to use
+    switch (true) {
+        case isset($json_input["stop_sequence"]):
+            $stop_sequence = $json_input["stop_sequence"];
+            if (!is_string($stop_sequence)) error(400, "Invalid stop_sequence. Must be a string.");
+            break;
+        case isset($session_config["stop_sequence"]):
+            $stop_sequence = $session_config["stop_sequence"];
+            break;
+        case isset($collection_config["stop_sequence"]):
+            $stop_sequence = $collection_config["stop_sequence"];
+            break;
+        case isset($user_config["stop_sequence"]):
+            $stop_sequence = $user_config["stop_sequence"];
+            break;
+    }
+
+    // decide what temperature
+    switch (true) {
+        case isset($json_input["temperature"]):
+            $temperature = $json_input["temperature"];
+            if (!is_numeric($temperature)) error(400, "Invalid temperature. Must be numeric.");
+            break;
+        case isset($session_config["temperature"]):
+            $temperature = $session_config["temperature"];
+            break;
+        case isset($collection_config["temperature"]):
+            $temperature = $collection_config["temperature"];
+            break;
+        case isset($user_config["temperature"]):
+            $temperature = $user_config["temperature"];
+            break;
+    }
+
 
     $stream = isset($json_input["stream"]) && $json_input["stream"] === true ? true : false;
     if ($stream) {
