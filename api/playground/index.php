@@ -117,7 +117,7 @@
                             <div class="form-control flex-grow highlights" id="apiResponse">Response will appear here...</div>
                         </div>
                     </div>
-                    <div class="mb-3 flex-row">
+                    <div class="mb-3 flex flex-row">
                         <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                         <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
                     </div>
