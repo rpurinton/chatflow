@@ -124,8 +124,6 @@
             var inputBox = document.getElementById('apiData');
             var inputError = document.getElementById('apiDataError');
             inputBox.addEventListener('input', function(event) {
-                underlay.innerHTML = inputBox.value;
-                hljs.highlightElement(underlay);
                 try {
                     JSON.parse(inputBox.value);
                     // pretty print reformat the box
@@ -135,6 +133,8 @@
                     var errorLine = error.message.split('\n')[0];
                     inputError.innerHTML = "❌ " + errorLine;
                 }
+                underlay.innerHTML = inputBox.value;
+                hljs.highlightElement(underlay);
             });
 
             inputBox.addEventListener('scroll') = function(event) {
