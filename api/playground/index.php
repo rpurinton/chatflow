@@ -108,8 +108,9 @@
                             <textarea class="form-control flex-grow highlights" id="apiData"></textarea>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <p id="apiDataError">✅ JSON Validator Ready!</p>
+                    <div id="apiDataError" class="mb-3 flex-row">
+                        <p>✅</p>
+                        <p>JSON Validator Ready!</p>
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop">
@@ -148,10 +149,10 @@
                     inputBox.selectionStart = start;
                     inputBox.selectionEnd = end;
                     inputBox.scrollTop = scrollTop;
-                    inputError.innerHTML = "✅ JSON is valid!";
+                    inputError.innerHTML = "<p>✅</p><p>JSON is valid!</p>";
                 } catch (error) {
                     var errorLine = error.message.split('\n')[0];
-                    inputError.innerHTML = "❌ " + errorLine;
+                    inputError.innerHTML = "<p>❌</p><p>" + errorLine + "</p>";
                 }
                 underlay.innerHTML = inputBox.value;
                 hljs.highlightElement(underlay);
