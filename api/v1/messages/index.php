@@ -134,11 +134,14 @@ if ($passthru) {
             pad_echo("$i...");
             sleep(1);
         }
+    } else {
+        header('Content-Type: application/json; charset=utf-8');
+        $response["result"] = "ok";
     }
 } else {
+    header('Content-Type: application/json; charset=utf-8');
     $response["result"] = "ok";
     $response["session"] = $session_id;
-    header('Content-Type: application/json; charset=utf-8');
     echo json_encode($response, JSON_PRETTY_PRINT);
 }
 
