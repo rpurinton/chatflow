@@ -81,6 +81,10 @@
         #underlay {
             z-index: 1;
         }
+
+        .stale {
+            opacity: 0.5;
+        }
     </style>
 </head>
 
@@ -114,7 +118,7 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop">
-                            <div class="form-control flex-grow highlights" id="apiResponse">Response will appear here...</div>
+                            <div class="form-control flex-grow highlights stale" id="apiResponse">Response will appear here...</div>
                         </div>
                     </div>
                     <div class="mb-3 flex flex-row">
@@ -137,7 +141,14 @@
             var underlay = document.getElementById('underlay');
             var inputBox = document.getElementById('apiData');
             var inputError = document.getElementById('apiDataError');
+            var apiResponse = document.getElementById('apiResponse');
+            var lastValue = inputBox.value;
             inputBox.addEventListener('input', function(event) {
+                if (lastValue === inputBox.value) {
+                    return;
+                }
+                lastValue = inputBox.value;
+                apiResponse.classList.add('stale');
                 try {
                     JSON.parse(inputBox.value);
                     // get the current caret position and scrollpositions so we can restore it after
@@ -186,6 +197,7 @@
                                 done,
                                 value
                             }) => {
+                                apiResponse.classList.remove('stale');
                                 if (done) {
                                     apiResponse.innerHTML = responseText.replace(/\0/g, '');
                                     hljs.highlightElement(apiResponse);
