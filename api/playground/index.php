@@ -60,6 +60,7 @@
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
             pointer-events: none;
             z-index: 1;
+            white-space: pre;
         }
     </style>
 </head>
