@@ -85,7 +85,7 @@
             });
 
             var inputBox = document.getElementById('apiData');
-            inputBox.addEventListener('change', function(event) {
+            inputBox.addEventListener('input', function(event) {
                 hljs.highlightElement(inputBox);
                 try {
                     JSON.parse(inputBox.value);
