@@ -19,6 +19,9 @@ try {
     error(500, $e->getMessage());
 }
 
+require_once(__DIR__ . "/../../../TikToken.php");
+$encoder = new RPurinton\ChatFlow\TikToken();
+
 // Continue to Validate the token
 $token = $sql->escape($token);
 extract($sql->single("SELECT count(1) as `valid`, `token_id`, `token`, `user_id` FROM `api_tokens` WHERE `token` = '$token'"));
@@ -92,6 +95,31 @@ if ($json_input["session"] == "new") {
             if (isset($collection_config["stop_sequence"])) {
                 $stop_sequence = $sql->escape($collection_config["stop_sequence"]);
                 $sql->query("UPDATE `collections` SET `stop_sequence` = '$stop_sequence' WHERE `collection_id` = '$collection_id'");
+            }
+            if (isset($collection_config["messages"])) {
+                if (!is_array($collection_config["messages"])) error(400, "Invalid collection config messages. Must be an array.");
+                foreach ($collection_config["messages"] as $message) {
+                    $role = $message["role"];
+                    if (!in_array($role, ["system", "user", "assistant", "function"])) error(400, "Invalid collection config message role. Must be 'system', 'user', 'assistant', or 'function'.");
+                    $content = $message["content"];
+                    $token_count = $encoder->token_count($content);
+                    $sql_content = $sql->escape($content);
+                    $sql->query("INSERT INTO `collection_messages` (`collection_id`, `role`, `content`, `token_count`) VALUES ('$collection_id', '$role', '$sql_content', '$token_count')");
+                    if (!isset($response["tokens_inserted"])) $response["tokens_inserted"] = $token_count;
+                    else $response["tokens_inserted"] += $token_count;
+                    if (isset($json_input["return_meta"]) && $json_input["return_meta"] === true) {
+                        $message_id = $sql->insert_id();
+                        extract($sql->single("SELECT `created_at` FROM `collection_messages` WHERE `message_id` = '$message_id'"));
+                        $response["meta"][] = [
+                            "message_id" => $message_id,
+                            "collection_id" => $collection_id,
+                            "role" => $role,
+                            "content" => $content,
+                            "token_count" => $token_count,
+                            "created_at" => $created_at
+                        ];
+                    }
+                }
             }
             $collection_config = $sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'");
         } catch (\Exception $e) {
@@ -170,6 +198,33 @@ if ($json_input["session"] == "new") {
     extract($sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '$collection_id' AND `token_id` = '$token_id'"));
     if (!$valid) error(401, "Invalid token for this session. Check your token and try again.");
 }
+
+if (isset($json_input["messages"])) {
+    if (!is_array($json_input["messages"])) error(400, "Invalid messages object. Must be an array.");
+    foreach ($json_input["messages"] as $message) {
+        $role = $message["role"];
+        if (!in_array($role, ["system", "user", "assistant", "function"])) error(400, "Invalid message role. Must be 'system', 'user', 'assistant', or 'function' but you had '$role'.");
+        $content = $message["content"];
+        $token_count = $encoder->token_count($content);
+        $sql_content = $sql->escape($content);
+        $sql->query("INSERT INTO `chat_messages` (`session_id`, `role`, `content`, `token_count`) VALUES ('$session_id', '$role', '$sql_content', '$token_count')");
+        if (!isset($response["tokens_inserted"])) $response["tokens_inserted"] = $token_count;
+        else $response["tokens_inserted"] += $token_count;
+    }
+    if (isset($json_input["return_meta"]) && $json_input["return_meta"] === true) {
+        $message_id = $sql->insert_id();
+        extract($sql->single("SELECT `created_at` FROM `collection_messages` WHERE `message_id` = '$message_id'"));
+        $response["meta"][] = [
+            "message_id" => $message_id,
+            "session_id" => $session_id,
+            "role" => $role,
+            "content" => $content,
+            "token_count" => $token_count,
+            "created_at" => $created_at
+        ];
+    }
+}
+
 $passthru = isset($json_input["passthru"]) && $json_input["passthru"] === true ? true : false;
 if ($passthru) {
     require_once(__DIR__ . "/../../../OpenAIClient.php");
