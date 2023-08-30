@@ -36,38 +36,27 @@
             max-width: 150px;
         }
 
-        .backdrop1,
-        .backdrop2 {
+        .backdrop {
             position: relative;
             width: 100%;
             height: 100%;
-            overflow: hidden;
         }
 
-        .highlights1,
-        .highlights2 {
+        .highlights {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-            pointer-events: none;
-            z-index: 1;
-            white-space: pre-wrap;
-            padding: 10px;
-            border-radius: 10px;
-            overflow: auto;
-        }
-
-        #apiData {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.5;
-            z-index: 2;
+            overflow-y: scroll;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            background-color: #212529;
+            color: #fff;
+            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -91,19 +80,17 @@
                         <input type="text" class="form-control" id="apiToken" placeholder="Enter a ChatFlow Token here...">
                     </div>
                     <div class="mb-3 flex-grow">
-                        <div class="backdrop1">
-                            <div class="highlights1">This is Highlights1</div>
-                        </div>
-                        <div class="backdrop1">
-                            <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
+                        <div class="backdrop">
+                            <div id="underlay" class="form-control flex-grow highlights1">This is Highlights1</div>
+                            <textarea class="form-control flex-grow highlights" id="apiData" placeholder="Enter Request JSON here..."></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
                         <p id="apiDataError">✅ JSON Validator Ready!</p>
                     </div>
                     <div class="mb-3 flex-grow">
-                        <div class="backdrop2">
-                            <div class="highlights2" id="apiResponse">Response will appear here...</div>
+                        <div class="backdrop">
+                            <div class="form-control flex-grow highlights" id="apiResponse">Response will appear here...</div>
                         </div>
                     </div>
                     <div class="mb-3 flex-row">
