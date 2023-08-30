@@ -137,6 +137,7 @@ if ($passthru) {
     } else {
         header('Content-Type: application/json; charset=utf-8');
         $response["result"] = "ok";
+        echo json_encode($response, JSON_PRETTY_PRINT);
     }
 } else {
     header('Content-Type: application/json; charset=utf-8');
