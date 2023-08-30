@@ -86,6 +86,7 @@
             });
 
             var inputBox = document.getElementById('apiData');
+            const Ajv = require("ajv");
             var ajv = new Ajv(); // Create an instance of Ajv
             inputBox.addEventListener('change', function(event) {
                 hljs.highlightBlock(inputBox);
