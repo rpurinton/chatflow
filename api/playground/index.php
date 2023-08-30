@@ -86,7 +86,7 @@
 
             var inputBox = document.getElementById('apiData');
             inputBox.addEventListener('change', function(event) {
-                hljs.highlightBlock(inputBox);
+                hljs.highlightElement(inputBox);
                 try {
                     JSON.parse(inputBox.value);
                     console.log('JSON is valid');
