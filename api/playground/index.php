@@ -139,8 +139,15 @@
             inputBox.addEventListener('input', function(event) {
                 try {
                     JSON.parse(inputBox.value);
-                    // pretty print reformat the box
+                    // get the current caret position and scrollpositions so we can restore it after
+                    var start = inputBox.selectionStart;
+                    var end = inputBox.selectionEnd;
+                    var scrollTop = inputBox.scrollTop;
                     inputBox.value = JSON.stringify(JSON.parse(inputBox.value), null, 4);
+                    // restore caret position and scroll position
+                    inputBox.selectionStart = start;
+                    inputBox.selectionEnd = end;
+                    inputBox.scrollTop = scrollTop;
                     inputError.innerHTML = "✅ JSON is valid!";
                 } catch (error) {
                     var errorLine = error.message.split('\n')[0];
@@ -201,8 +208,10 @@
                     });
             });
             document.getElementById('clearButton').addEventListener('click', function(event) {
+                document.getElementById('apiEndpoint').value = "/api/v1/messages/";
+                document.getElementById('underlay').innerHTML = "Enter Request JSON here...";
                 document.getElementById('apiData').value = "";
-                document.getElementById('apiResponse').value = "";
+                document.getElementById('apiResponse').value = "Response will appear here...";
             });
         </script>
 </body>
