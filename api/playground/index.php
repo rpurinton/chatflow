@@ -85,6 +85,10 @@
         .stale {
             opacity: 0.5;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
@@ -115,6 +119,7 @@
                     <div id="apiDataError" class="mb-3 flex flex-row">
                         <p>✅&nbsp;</p>
                         <p>JSON Validator Ready!</p>
+                        <button type="submit" id="submitButton" class="btn hidden">Send Request</button>
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop">
@@ -122,7 +127,6 @@
                         </div>
                     </div>
                     <div class="mb-3 flex flex-row">
-                        <button type="submit" id="submitButton" class="btn btn-primary">Send Request</button>
                         <button type="button" id="clearButton" class="btn btn-secondary">Clear</button>
                     </div>
                 </form>
@@ -158,9 +162,11 @@
                     inputBox.selectionEnd = end;
                     inputBox.scrollTop = scrollTop;
                     inputError.innerHTML = "<p>✅&nbsp;</p><p>JSON is valid!</p>";
+                    document.getElementById('submitButton').classList.remove('hidden');
                 } catch (error) {
                     var errorLine = error.message.split('\n')[0];
                     inputError.innerHTML = "<p>❌&nbsp;</p><p>" + errorLine + "</p>";
+                    document.getElementById('submitButton').classList.add('hidden');
                 }
                 underlay.innerHTML = inputBox.value;
                 hljs.highlightElement(underlay);
