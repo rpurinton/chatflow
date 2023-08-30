@@ -57,6 +57,7 @@
             font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             font-size: 0.875rem;
             line-height: 1.5;
+            white-space: pre-wrap;
         }
 
         #apiData {
