@@ -64,19 +64,21 @@
             z-index: 2;
             background-color: transparent;
             color: transparent;
-            caret-color: #fff;
-            animation: caretFlash 1s infinite;
+            caret-color: transparent;
+            animation: caretBlink 0.5s infinite;
         }
 
-        @keyframes caretFlash {
-
-            0%,
-            100% {
+        @keyframes caretBlink {
+            0% {
                 caret-color: #fff;
             }
 
             50% {
                 caret-color: transparent;
+            }
+
+            100% {
+                caret-color: #fff;
             }
         }
 
