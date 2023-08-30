@@ -1,0 +1,23 @@
+{
+    "url": "https://chatflow.discommand.com/api/v1/messages/",
+    "token": "chatflow-34f307b1c3a7e3c2b49f13b2f6974424566a5c20ffc97153899ab16",
+    "collection": "new",
+    "collection_config": {
+        "name": "PHP ChatFlow Tester",
+        "key_id": 1145688810265526404,
+        "model": "gpt-3.5-turbo-0613",
+        "messages": [
+            {
+                "role": "system",
+                "content": "I am a helpful chatbot."
+            }
+        ],
+        "temperature": 0.986,
+        "top_p": 0.986,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "max_tokens": 256
+    },
+    "session": "new",
+    "passthru": true
+}
