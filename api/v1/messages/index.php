@@ -96,7 +96,7 @@ if ($json_input["session"] == "new") {
             extract($sql->single("SELECT * FROM `collections` WHERE `collection_id` = '$collection_id'"));
             $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
             $session_id = $sql->insert_id();
-            $resposne["session_id"] = $session_id;
+            $response["session_id"] = $session_id;
         } catch (\Exception $e) {
             error(500, $e->getMessage());
         } catch (\Error $e) {
