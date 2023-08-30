@@ -66,7 +66,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 1;
+            opacity: 0.5;
             z-index: 2;
         }
     </style>
@@ -94,7 +94,9 @@
                         <div class="backdrop1">
                             <div class="highlights1">This is Highlights1</div>
                         </div>
-                        <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
+                        <div class="backdrop1">
+                            <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <p id="apiDataError">✅ JSON Validator Ready!</p>
