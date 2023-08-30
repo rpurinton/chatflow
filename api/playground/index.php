@@ -147,7 +147,6 @@
                 if (lastValue === inputBox.value) {
                     return;
                 }
-                lastValue = inputBox.value;
                 apiResponse.classList.add('stale');
                 try {
                     JSON.parse(inputBox.value);
@@ -179,7 +178,7 @@
                 var apiData = document.getElementById('apiData').value;
                 apiResponse.classList.remove('stale');
                 apiResponse.value = "Loading...";
-
+                lastValue = apiData;
                 fetch(apiEndpoint, {
                         method: 'POST',
                         headers: {
