@@ -91,8 +91,8 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <div class="backdrop">
-                            <div id="underlay" class="form-control flex-grow highlights">This is Highlights1</div>
-                            <textarea class="form-control flex-grow highlights" id="apiData" placeholder="Enter Request JSON here..."></textarea>
+                            <div id="underlay" class="form-control flex-grow highlights">Enter Request JSON here...</div>
+                            <textarea class="form-control flex-grow highlights" id="apiData"></textarea>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -120,20 +120,26 @@
                 event.preventDefault();
             });
 
+            var underlay = document.getElementById('underlay');
             var inputBox = document.getElementById('apiData');
             var inputError = document.getElementById('apiDataError');
             inputBox.addEventListener('input', function(event) {
+                underlay.innerHTML = inputBox.value;
+                hljs.highlightElement(underlay);
                 try {
                     JSON.parse(inputBox.value);
                     // pretty print reformat the box
                     inputBox.value = JSON.stringify(JSON.parse(inputBox.value), null, 4);
-                    hljs.highlightElement(inputBox);
                     inputError.innerHTML = "✅ JSON is valid!";
                 } catch (error) {
                     var errorLine = error.message.split('\n')[0];
                     inputError.innerHTML = "❌ " + errorLine;
                 }
             });
+
+            inputBox.addEventListener('scroll') = function(event) {
+                underlay.scrollTop = inputBox.scrollTop;
+            }
 
             document.getElementById('submitButton').addEventListener('click', function(event) {
                 var apiEndpoint = document.getElementById('apiEndpoint').value;
