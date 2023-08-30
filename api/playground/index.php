@@ -31,12 +31,6 @@
             flex-direction: row;
         }
 
-        #apiData {
-            position: relative;
-            height: 100%;
-            z-index: 2;
-        }
-
         .btn {
             margin-bottom: 0.5rem;
             max-width: 150px;
@@ -63,6 +57,17 @@
             white-space: pre-wrap;
             padding: 10px;
             border-radius: 10px;
+            overflow: auto;
+        }
+
+        #apiData {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            z-index: 2;
         }
     </style>
 </head>
