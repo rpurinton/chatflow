@@ -31,8 +31,8 @@
             flex-direction: row;
         }
 
-        #apiData,
-        #apiResponse {
+        #apiData {
+            position: relative;
             height: 100%;
             z-index: 2;
         }
