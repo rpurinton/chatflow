@@ -63,6 +63,7 @@
                     </div>
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control flex-grow" id="apiData" placeholder="Enter Request JSON here..."></textarea>
+                        <p id="apiDataError">JSON Validator Ready!</p>
                     </div>
                     <div class="mb-3 flex-grow">
                         <textarea class="form-control" id="apiResponse" readonly>Response will appear here...</textarea>
@@ -85,14 +86,17 @@
             });
 
             var inputBox = document.getElementById('apiData');
+            var inputError = document.getElementById('apiDataError');
             inputBox.addEventListener('input', function(event) {
-                hljs.highlightElement(inputBox);
                 try {
                     JSON.parse(inputBox.value);
-                    console.log('JSON is valid');
+                    // pretty print reformat the box
+                    inputBox.value = JSON.stringify(JSON.parse(inputBox.value), null, 4);
+                    hljs.highlightElement(inputBox);
+                    inputError.innerHTML = "✅ JSON is valid!";
                 } catch (error) {
-                    console.log('JSON is invalid');
-                    console.log(error);
+                    var errorLine = error.message.split('\n')[0];
+                    inputError.innerHTML = "❌ " + errorLine;
                 }
             });
 
