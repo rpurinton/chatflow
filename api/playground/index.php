@@ -108,7 +108,7 @@
                             <textarea class="form-control flex-grow highlights" id="apiData"></textarea>
                         </div>
                     </div>
-                    <div id="apiDataError" class="mb-3 flex-row">
+                    <div id="apiDataError" class="mb-3 flex flex-row">
                         <p>✅</p>
                         <p>JSON Validator Ready!</p>
                     </div>
