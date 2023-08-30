@@ -49,9 +49,9 @@
             width: 100%;
             height: 100%;
             overflow-y: scroll;
-            padding: 0.5rem;
+            padding: 10px;
             border: 1px solid #ced4da;
-            border-radius: 0.25rem;
+            border-radius: 10px;
             background-color: #212529;
             color: #fff;
             font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
