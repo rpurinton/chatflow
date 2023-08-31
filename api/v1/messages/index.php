@@ -602,6 +602,7 @@ if (true) {
                 $prompt_tokens -= $message["token_count"];
                 $messages[] = ["role" => $message["role"], "content" => $message["content"]];
             }
+            print_r($messages);
             // get the chat history 
             $history_results = $sql->query("SELECT *
                 FROM (
@@ -611,7 +612,8 @@ if (true) {
                     WHERE `session_id` = '$session_id'
                 ) AS temp
                 WHERE cumulative_token_count <= 512");
-            while ($history = $history_results->fetch_assoc()) $messages[] = $history;
+            while ($history = $history_results->fetch_assoc()) $messages[] = ["role" => $history["role"], "content" => $history["content"]];
+            print_r($messages);
             $prompt = [
                 'model' => $model,
                 'messages' => $messages,
