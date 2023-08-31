@@ -12,7 +12,7 @@ var session_id;
 // store the url and token in variables
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('tester.json')
+    fetch('../tester.json')
         .then(response => response.json())
         .then(data => {
             json_data = data;
