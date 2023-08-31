@@ -18,21 +18,22 @@ document.addEventListener('DOMContentLoaded', function () {
             json_data = data;
             url = json_data.url;
             token = json_data.token;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify(json_data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    initial_response = data;
+                });
+            session_id = initial_response.session_id;
+            console.log(session_id);
         });
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify(json_data)
-    })
-        .then(response => response.json())
-        .then(data => {
-            initial_response = data;
-        });
-    session_id = initial_response.session_id;
-    console.log(session_id);
+
     // Event listener for send button click
     document.getElementById("send-btn").addEventListener("click", sendMessage);
 
