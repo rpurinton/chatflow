@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     initial_response = data;
                     session_id = initial_response.session_id;
-                    console.log(session_id);
+                    appendMessage(initial_response.choices[0].message.role, initial_response.choices[0].message.content);
                 });
         });
 
