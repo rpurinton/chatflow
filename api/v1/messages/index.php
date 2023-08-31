@@ -67,7 +67,7 @@ if (true) {
                 $collection_name = isset($collection_config["name"]) ? $sql->escape($collection_config["name"]) : null;
                 $sql->query("INSERT INTO `collections` (`collection_name`,`user_id`) VALUES ('$collection_name','$user_id')");
                 $collection_id = $sql->insert_id();
-                $response["collection_id"] = $collection_id;
+                $response["collection_id"] = strval($collection_id);
                 $sql->query("INSERT INTO `collections_api_tokens` (`collection_id`, `token_id`) VALUES ('$collection_id', '$token_id')");
                 // if key_id isset
                 if (isset($collection_config["key_id"])) {
@@ -233,7 +233,7 @@ if (true) {
         try {
             $sql->query("INSERT INTO `sessions` (`collection_id`) VALUES ('$collection_id')");
             $session_id = $sql->insert_id();
-            $response["session_id"] = $session_id;
+            $response["session_id"] = strval($session_id);
             if (isset($json_input["session_config"])) {
                 $session_config = $json_input["session_config"];
                 if (!is_array($session_config)) error(400, "Invalid session config. Must be an array.");
