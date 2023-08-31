@@ -615,14 +615,14 @@ if (true) {
             while ($chat_message = $chat_messages->fetch_assoc()) $prompt_messages[] = ["role" => $chat_message["role"], "content" => $chat_message["content"]];
             $prompt = [
                 'model' => $model,
-                'messages' => $prompt_messages,
-                'temperature' => floatval($temperature),
-                'top_p' => floatval($top_p),
-                'frequency_penalty' => floatval($frequency_penalty),
-                'presence_penalty' => floatval($presence_penalty),
-                'stop_sequence' => $stop_sequence,
-                'max_tokens' => intval($max_tokens)
+                'messages' => $prompt_messages
             ];
+            if (isset($temperature)) $prompt["temperature"] = floatval($temperature);
+            if (isset($top_p)) $prompt["top_p"] = floatval($top_p);
+            if (isset($frequency_penalty)) $prompt["frequency_penalty"] = floatval($frequency_penalty);
+            if (isset($presence_penalty)) $prompt["presence_penalty"] = floatval($presence_penalty);
+            if (isset($stop_sequence)) $prompt["stop"] = $stop_sequence;
+            if (isset($max_tokens)) $prompt["max_tokens"] = intval($max_tokens);
         }
 
 
