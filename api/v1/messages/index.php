@@ -598,7 +598,8 @@ if (true) {
             $prompt_messages = [];
             // get any collection messages
             $collection_messages = $sql->query("SELECT `role`, `content`,`token_count` FROM `collection_messages` WHERE `collection_id` = '$collection_id' ORDER BY `message_id` ASC");
-            while ($collection_message = $collection_messages->fetch_assoc() && $prompt_tokens > 0) {
+            while ($collection_message = $sql->assoc($collection_messages)) {
+                if ($prompt_tokens - $collection_message["token_count"] < 0) continue;
                 $prompt_tokens -= $collection_message["token_count"];
                 $prompt_messages[] = ["role" => $collection_message["role"], "content" => $collection_message["content"]];
             }
