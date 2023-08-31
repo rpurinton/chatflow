@@ -53,9 +53,9 @@ function sendMessage() {
     // Append the user message to the chat container
     appendMessage("user", userInput);
 
-    // Send the user message to the API for a response
-    // You can use AJAX or fetch to make a POST request to your API endpoint
-    // and handle the response accordingly
+    $info = {
+        "session": session_id,
+    }
 
     // Clear the input field after sending the message
     document.getElementById("user-input").value = "";
