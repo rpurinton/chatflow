@@ -33,6 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     session_id = initial_response.session_id;
     console.log(session_id);
+    // Event listener for send button click
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+    // Event listener for enter key press in the input field
+    document.getElementById("user-input").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
 });
 
 // Function to handle sending a message
@@ -66,13 +75,3 @@ function appendMessage(role, content) {
     // Scroll to the bottom of the chat container to show the latest message
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
-
-// Event listener for send button click
-document.getElementById("send-btn").addEventListener("click", sendMessage);
-
-// Event listener for enter key press in the input field
-document.getElementById("user-input").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
-});
