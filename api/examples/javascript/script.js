@@ -9,7 +9,7 @@ var session_id;
 document.addEventListener('DOMContentLoaded', function () {
     fetch('../tester.json')
         .then(response => response.json())
-        .then(data => {ƒ
+        .then(data => {
             json_data = data;
             url = json_data.url;
             token = json_data.token;
