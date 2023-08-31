@@ -655,8 +655,7 @@ if (true) {
             try {
                 $ai_response = $openai->chat()->create($prompt);
                 $response = array_merge($response, $ai_response->toArray());
-                print_r($response);
-                $full_response = $response["choices"][0]["text"];
+                $full_response = $response["choices"][0]["message"]["content"];
                 $token_count = $encoder->token_count($full_response);
                 $sql_text = $sql->escape($full_response);
                 $sql->query("INSERT INTO `chat_messages` (`session_id`, `role`, `content`, `token_count`) VALUES ('$session_id', 'assistant', '$sql_text', '$token_count')");
