@@ -604,14 +604,16 @@ if (true) {
                 $prompt_messages[] = ["role" => $collection_message["role"], "content" => $collection_message["content"]];
             }
             // get the chat history 
-            $chat_messages = $sql->query("SELECT *
-                FROM (
-                    SELECT `role`, `content`,
-                    SUM(`token_count`) OVER (ORDER BY `created_at` DESC) AS `cumulative_token_count`
-                    FROM `chat_messages`
-                    WHERE `session_id` = '$session_id'
-                ) AS temp
-                WHERE cumulative_token_count <= 512");
+            $chat_messages = $sql->query("SELECT `role`,`content`
+            FROM (
+                SELECT `message_id`,`role`, `content`,
+                SUM(`token_count`) OVER (ORDER BY `created_at` DESC) AS `cumulative_token_count`
+                FROM `chat_messages`
+                WHERE `session_id` = '$session_id'
+                ORDER BY `message_id` DESC
+            ) AS temp
+            WHERE cumulative_token_count <= '$prompt_tokens'
+            ORDER BY `message_id` ASC;");
             while ($chat_message = $chat_messages->fetch_assoc()) $prompt_messages[] = ["role" => $chat_message["role"], "content" => $chat_message["content"]];
             $prompt = [
                 'model' => $model,
