@@ -655,6 +655,7 @@ if (true) {
             try {
                 $ai_response = $openai->chat()->create($prompt);
                 $response = array_merge($response, $ai_response->toArray());
+                print_r($response);
                 $full_response = $response["choices"][0]["text"];
                 $token_count = $encoder->token_count($full_response);
                 $sql_text = $sql->escape($full_response);
