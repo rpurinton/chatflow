@@ -1,5 +1,5 @@
 <?php
-$json = json_decode(file_get_contents(__DIR__ . "/tester.json")) or die("Unable to open ./tester.json file!");
+$json = json_decode(file_get_contents(__DIR__ . "/../../tester.json")) or die("Unable to open ./tester.json file!");
 $response = json_decode(file_get_contents($json->url, false, stream_context_create(["http" => ["method" => "POST", "header" => "Content-Type: application/json\r\nAuthorization: Bearer " . $json->token . "\r\n", "content" => json_encode($json)]])), true) or die("Unable to decode response!");
 echo (isset($response["choices"][0]["message"]["content"]) ? "Press CTRL+C to exit...\n" . $response["choices"][0]["message"]["content"] . "\n> " : die("Unable to find response text!\n"));
 while (true) {
