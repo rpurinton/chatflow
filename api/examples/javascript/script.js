@@ -1,20 +1,15 @@
 // script.js
 
-// but first we need to download the tester.json file
 var json_data;
 var url;
 var token;
 var initial_response;
 var session_id;
 
-// on document ready
-// use fetch to get the json_data from the tester.json file
-// store the url and token in variables
-
 document.addEventListener('DOMContentLoaded', function () {
     fetch('../tester.json')
         .then(response => response.json())
-        .then(data => {
+        .then(data => {ƒ
             json_data = data;
             url = json_data.url;
             token = json_data.token;
