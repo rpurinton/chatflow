@@ -595,16 +595,16 @@ if (true) {
 
         // setup the prompt
         if (true) {
-            $messages = [];
+            $prompt_messages = [];
             // get any collection messages
             $collection_messages = $sql->query("SELECT `role`, `content`,`token_count` FROM `collection_messages` WHERE `collection_id` = '$collection_id' ORDER BY `message_id` ASC");
-            while ($message = $collection_messages->fetch_assoc() && $prompt_tokens > 0) {
-                $prompt_tokens -= $message["token_count"];
-                $messages[] = ["role" => $message["role"], "content" => $message["content"]];
+            while ($collection_message = $collection_messages->fetch_assoc() && $prompt_tokens > 0) {
+                $prompt_tokens -= $collection_message["token_count"];
+                $prompt_messages[] = ["role" => $collection_message["role"], "content" => $collection_message["content"]];
             }
-            print_r($messages);
+            print_r($prompt_messages);
             // get the chat history 
-            $history_results = $sql->query("SELECT *
+            $chat_messages = $sql->query("SELECT *
                 FROM (
                     SELECT `role`, `content`,
                     SUM(`token_count`) OVER (ORDER BY `created_at` DESC) AS `cumulative_token_count`
@@ -612,11 +612,11 @@ if (true) {
                     WHERE `session_id` = '$session_id'
                 ) AS temp
                 WHERE cumulative_token_count <= 512");
-            while ($history = $history_results->fetch_assoc()) $messages[] = ["role" => $history["role"], "content" => $history["content"]];
-            print_r($messages);
+            while ($chat_message = $chat_messages->fetch_assoc()) $prompt_messages[] = ["role" => $chat_message["role"], "content" => $chat_message["content"]];
+            print_r($prompt_messages);
             $prompt = [
                 'model' => $model,
-                'messages' => $messages,
+                'messages' => $prompt_messages,
                 'temperature' => $temperature,
                 'top_p' => $top_p,
                 'frequency_penalty' => $frequency_penalty,
