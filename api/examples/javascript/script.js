@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     initial_response = data;
+                    session_id = initial_response.session_id;
+                    console.log(session_id);
                 });
-            session_id = initial_response.session_id;
-            console.log(session_id);
         });
 
     // Event listener for send button click
