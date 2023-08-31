@@ -81,7 +81,7 @@ if (true) {
                     $sql->query("UPDATE `collections` SET `model` = '$model' WHERE `collection_id` = '$collection_id'");
                 }
                 if (isset($collection_config["temperature"])) {
-                    if (!is_float($collection_config["temperature"])) error(400, "Invalid collection config temperature. Must be a float.");
+                    if (!is_numeric($collection_config["temperature"])) error(400, "Invalid collection config temperature. Must be a float.");
                     $temperature = $sql->escape($collection_config["temperature"]);
                     $sql->query("UPDATE `collections` SET `temperature` = '$temperature' WHERE `collection_id` = '$collection_id'");
                 }
@@ -93,19 +93,19 @@ if (true) {
                 }
                 // if top_p
                 if (isset($collection_config["top_p"])) {
-                    if (!is_float($collection_config["top_p"])) error(400, "Invalid collection config top_p. Must be a float.");
+                    if (!is_numeric($collection_config["top_p"])) error(400, "Invalid collection config top_p. Must be a float.");
                     $top_p = $sql->escape($collection_config["top_p"]);
                     $sql->query("UPDATE `collections` SET `top_p` = '$top_p' WHERE `collection_id` = '$collection_id'");
                 }
                 // if frequency_penalty
                 if (isset($collection_config["frequency_penalty"])) {
-                    if (!is_float($collection_config["frequency_penalty"])) error(400, "Invalid collection config frequency_penalty. Must be a float.");
+                    if (!is_numeric($collection_config["frequency_penalty"])) error(400, "Invalid collection config frequency_penalty. Must be a float.");
                     $frequency_penalty = $sql->escape($collection_config["frequency_penalty"]);
                     $sql->query("UPDATE `collections` SET `frequency_penalty` = '$frequency_penalty' WHERE `collection_id` = '$collection_id'");
                 }
                 // if presence_penalty
                 if (isset($collection_config["presence_penalty"])) {
-                    if (!is_float($collection_config["presence_penalty"])) error(400, "Invalid collection config presence_penalty. Must be a float.");
+                    if (!is_numeric($collection_config["presence_penalty"])) error(400, "Invalid collection config presence_penalty. Must be a float.");
                     $presence_penalty = $sql->escape($collection_config["presence_penalty"]);
                     $sql->query("UPDATE `collections` SET `presence_penalty` = '$presence_penalty' WHERE `collection_id` = '$collection_id'");
                 }
