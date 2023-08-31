@@ -20,5 +20,6 @@
     },
     "session": "new",
     "return_meta": false,
-    "passthru": true
+    "passthru": true,
+    "prompt_tokens": 512
 }
