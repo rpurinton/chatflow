@@ -165,6 +165,8 @@
                     var start = inputBox.selectionStart;
                     var end = inputBox.selectionEnd;
                     var scrollTop = inputBox.scrollTop;
+                    // put quotes around any numbers that are too big for JavaScript to handle
+                    inputBox.value = inputBox.value.replace(/:\s*(-?\d{16,})/g, ':"$1"');
                     inputBox.value = JSON.stringify(JSON.parse(inputBox.value), null, 4);
                     inputBox.selectionStart = start;
                     inputBox.selectionEnd = end;
