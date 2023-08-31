@@ -470,7 +470,7 @@ if (true) {
             $key_result = $sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '$key_id' AND `user_id` = '$user_id'");
 
             if (!$key_result) error(400, "Invalid key. Check your key and try again.");
-            $openai = new \OpenAI\Client($key_result["key"]);
+            $openai = \OpenAI::client($key_result["key"]);
 
             // decide what model to use
             switch (true) {
