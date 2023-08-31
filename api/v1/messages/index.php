@@ -616,12 +616,12 @@ if (true) {
             $prompt = [
                 'model' => $model,
                 'messages' => $prompt_messages,
-                'temperature' => $temperature->toFloat(),
-                'top_p' => $top_p->toFloat(),
-                'frequency_penalty' => $frequency_penalty->toFloat(),
-                'presence_penalty' => $presence_penalty->toFloat(),
+                'temperature' => floatval($temperature),
+                'top_p' => floatval($top_p),
+                'frequency_penalty' => floatval($frequency_penalty),
+                'presence_penalty' => floatval($presence_penalty),
                 'stop_sequence' => $stop_sequence,
-                'max_tokens' => $max_tokens->toInteger()
+                'max_tokens' => intval($max_tokens)
             ];
         }
 
