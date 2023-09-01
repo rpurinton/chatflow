@@ -79,9 +79,9 @@ class Messages
             extract($this->sql->single("SELECT count(1) as `valid`, `token_id`, `token`, `user_id` FROM `api_tokens` WHERE `token` = '$token'"));
             if (!$valid) $this->error(401, "Invalid token. Check your token and try again.");
             if (!$token_id) $this->error(401, "Invalid token. Check your token and try again.");
-            if (!$this->user_id) $this->error(401, "Invalid token. Check your token and try again.");
+            if (!$user_id) $this->error(401, "Invalid token. Check your token and try again.");
             $this->token_id = $token_id;
-            $this->user_id = $this->user_id;
+            $this->user_id = $user_id;
         } catch (\Exception $e) {
             $this->error(500, $e->getMessage());
         } catch (\Error $e) {
