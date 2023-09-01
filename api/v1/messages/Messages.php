@@ -125,7 +125,7 @@ class Messages
                 $this->collection_id = $this->json_input["collection"];
                 if (!is_numeric($this->collection_id)) $this->error(400, "Invalid collection ID. Must be numeric.");
                 try {
-                    extract($this->sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '{$this->collection_id}' AND `token_id` = '$token_id'"));
+                    extract($this->sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '{$this->collection_id}' AND `token_id` = '{$this->token_id}'"));
                     if (!$valid) $this->error(401, "Invalid token for this collection. Check your token and collection ID and try again.");
                 } catch (\Exception $e) {
                     $this->error(500, $e->getMessage());
@@ -257,7 +257,7 @@ class Messages
                     $session_config = $this->sql->single("SELECT count(1) as `valid`, `collection_id` FROM `sessions` WHERE `session_id` = '{$this->session_id}'");
                     if (!$session_config["valid"]) $this->error(400, "Invalid session ID. Check your session ID and try again.");
                     $this->collection_id = $session_config["collection_id"];
-                    extract($this->sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '{$this->collection_id}' AND `token_id` = '$token_id'"));
+                    extract($this->sql->single("SELECT count(1) as `valid` FROM `collections_api_tokens` WHERE `collection_id` = '{$this->collection_id}' AND `token_id` = '{$this->token_id}'"));
                     if (!$valid) $this->error(401, "Invalid token for this session. Check your token and try again.");
                 } catch (\Exception $e) {
                     $this->error(500, $e->getMessage());
