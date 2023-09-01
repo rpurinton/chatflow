@@ -21,6 +21,7 @@ class Messages
     private $user_config;
     private $collection_config;
     private $session_config;
+    private $key_id;
 
 
     public function __construct()
@@ -152,8 +153,8 @@ class Messages
                 }
                 if (isset($collection_config["key_id"])) {
                     if (!is_numeric($collection_config["key_id"])) $this->error(400, "Invalid collection config key_id. Must be numeric.");
-                    $key_id = $this->sql->escape($collection_config["key_id"]);
-                    $this->sql->query("UPDATE `collections` SET `key_id` = '$key_id' WHERE `collection_id` = '{$this->collection_id}'");
+                    $this->key_id = $this->sql->escape($collection_config["key_id"]);
+                    $this->sql->query("UPDATE `collections` SET `key_id` = '{$this->key_id}' WHERE `collection_id` = '{$this->collection_id}'");
                 }
                 if (isset($collection_config["model"])) {
                     if (!is_string($collection_config["model"])) $this->error(400, "Invalid collection config model. Must be a string.");
@@ -279,8 +280,8 @@ class Messages
                 if (!is_array($session_config)) $this->error(400, "Invalid session config. Must be an array.");
                 // if key_id isset
                 if (isset($session_config["key_id"])) {
-                    $key_id = $this->sql->escape($session_config["key_id"]);
-                    $this->sql->query("UPDATE `sessions` SET `key_id` = '$key_id' WHERE `session_id` = '{$this->session_id}'");
+                    $this->key_id = $this->sql->escape($session_config["key_id"]);
+                    $this->sql->query("UPDATE `sessions` SET `key_id` = '{$this->key_id}' WHERE `session_id` = '{$this->session_id}'");
                 }
                 // if model
                 if (isset($session_config["model"])) {
@@ -393,21 +394,21 @@ class Messages
                         //save the new key in the db
                         $sql_key = $this->sql->escape($key);
                         $this->sql->query("INSERT INTO `chatgpt_api_keys` (`user_id`,`key`) VALUES ('$user_id','$sql_key') ON DUPLICATE KEY UPDATE `key_id` = LAST_INSERT_ID(`key_id`)");
-                        $key_id = $this->sql->insert_id();
+                        $this->key_id = $this->sql->insert_id();
                         break;
                     case isset($session_config["key_id"]):
-                        $key_id = $session_config["key_id"];
+                        $this->key_id = $session_config["key_id"];
                         break;
                     case isset($collection_config["key_id"]):
-                        $key_id = $collection_config["key_id"];
+                        $this->key_id = $collection_config["key_id"];
                         break;
                     case isset($user_config["key_id"]):
-                        $key_id = $user_config["key_id"];
+                        $this->key_id = $user_config["key_id"];
                         break;
                 }
 
-                if (!isset($key_id)) $this->error(400, "No key specified. You must specify a key.");
-                $key_result = $this->sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '$key_id' AND `user_id` = '$user_id'");
+                if (!isset($this->key_id)) $this->error(400, "No key specified. You must specify a key.");
+                $key_result = $this->sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '{$this->key_id}' AND `user_id` = '$user_id'");
 
                 if (!$key_result) $this->error(400, "Invalid key. Check your key and try again.");
                 $openai = \OpenAI::client($key_result["key"]);
