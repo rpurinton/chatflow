@@ -396,14 +396,14 @@ class Messages
                         $this->sql->query("INSERT INTO `chatgpt_api_keys` (`user_id`,`key`) VALUES ('{$this->user_id}','$sql_key') ON DUPLICATE KEY UPDATE `key_id` = LAST_INSERT_ID(`key_id`)");
                         $this->key_id = $this->sql->insert_id();
                         break;
-                    case isset($session_config["key_id"]):
-                        $this->key_id = $session_config["key_id"];
+                    case isset($this->session_config["key_id"]):
+                        $this->key_id = $this->session_config["key_id"];
                         break;
-                    case isset($collection_config["key_id"]):
-                        $this->key_id = $collection_config["key_id"];
+                    case isset($this->collection_config["key_id"]):
+                        $this->key_id = $this->collection_config["key_id"];
                         break;
-                    case isset($user_config["key_id"]):
-                        $this->key_id = $user_config["key_id"];
+                    case isset($this->user_config["key_id"]):
+                        $this->key_id = $this->user_config["key_id"];
                         break;
                 }
 
@@ -419,14 +419,14 @@ class Messages
                         $model = $this->json_input["model"];
                         if (!is_string($model)) $this->error(400, "Invalid model. Must be a string.");
                         break;
-                    case isset($session_config["model"]):
-                        $model = $session_config["model"];
+                    case isset($this->session_config["model"]):
+                        $model = $this->session_config["model"];
                         break;
-                    case isset($collection_config["model"]):
-                        $model = $collection_config["model"];
+                    case isset($this->collection_config["model"]):
+                        $model = $this->collection_config["model"];
                         break;
-                    case isset($user_config["model"]):
-                        $model = $user_config["model"];
+                    case isset($this->user_config["model"]):
+                        $model = $this->user_config["model"];
                         break;
                 }
                 if (!isset($model)) $this->error(400, "No model specified. You must specify a model.");
@@ -437,14 +437,14 @@ class Messages
                         $max_tokens = $this->json_input["max_tokens"];
                         if (!is_numeric($max_tokens)) $this->error(400, "Invalid max_tokens. Must be numeric.");
                         break;
-                    case isset($session_config["max_tokens"]):
-                        $max_tokens = $session_config["max_tokens"];
+                    case isset($this->session_config["max_tokens"]):
+                        $max_tokens = $this->session_config["max_tokens"];
                         break;
-                    case isset($collection_config["max_tokens"]):
-                        $max_tokens = $collection_config["max_tokens"];
+                    case isset($this->collection_config["max_tokens"]):
+                        $max_tokens = $this->collection_config["max_tokens"];
                         break;
-                    case isset($user_config["max_tokens"]):
-                        $max_tokens = $user_config["max_tokens"];
+                    case isset($this->user_config["max_tokens"]):
+                        $max_tokens = $this->user_config["max_tokens"];
                         break;
                 }
 
@@ -454,14 +454,14 @@ class Messages
                         $top_p = $this->json_input["top_p"];
                         if (!is_numeric($top_p)) $this->error(400, "Invalid top_p. Must be numeric.");
                         break;
-                    case isset($session_config["top_p"]):
-                        $top_p = $session_config["top_p"];
+                    case isset($this->session_config["top_p"]):
+                        $top_p = $this->session_config["top_p"];
                         break;
-                    case isset($collection_config["top_p"]):
-                        $top_p = $collection_config["top_p"];
+                    case isset($this->collection_config["top_p"]):
+                        $top_p = $this->collection_config["top_p"];
                         break;
-                    case isset($user_config["top_p"]):
-                        $top_p = $user_config["top_p"];
+                    case isset($this->user_config["top_p"]):
+                        $top_p = $this->user_config["top_p"];
                         break;
                 }
 
@@ -471,14 +471,14 @@ class Messages
                         $frequency_penalty = $this->json_input["frequency_penalty"];
                         if (!is_numeric($frequency_penalty)) $this->error(400, "Invalid frequency_penalty. Must be numeric.");
                         break;
-                    case isset($session_config["frequency_penalty"]):
-                        $frequency_penalty = $session_config["frequency_penalty"];
+                    case isset($this->session_config["frequency_penalty"]):
+                        $frequency_penalty = $this->session_config["frequency_penalty"];
                         break;
-                    case isset($collection_config["frequency_penalty"]):
-                        $frequency_penalty = $collection_config["frequency_penalty"];
+                    case isset($this->collection_config["frequency_penalty"]):
+                        $frequency_penalty = $this->collection_config["frequency_penalty"];
                         break;
-                    case isset($user_config["frequency_penalty"]):
-                        $frequency_penalty = $user_config["frequency_penalty"];
+                    case isset($this->user_config["frequency_penalty"]):
+                        $frequency_penalty = $this->user_config["frequency_penalty"];
                         break;
                 }
 
@@ -488,14 +488,14 @@ class Messages
                         $presence_penalty = $this->json_input["presence_penalty"];
                         if (!is_numeric($presence_penalty)) $this->error(400, "Invalid presence_penalty. Must be numeric.");
                         break;
-                    case isset($session_config["presence_penalty"]):
-                        $presence_penalty = $session_config["presence_penalty"];
+                    case isset($this->session_config["presence_penalty"]):
+                        $presence_penalty = $this->session_config["presence_penalty"];
                         break;
-                    case isset($collection_config["presence_penalty"]):
-                        $presence_penalty = $collection_config["presence_penalty"];
+                    case isset($this->collection_config["presence_penalty"]):
+                        $presence_penalty = $this->collection_config["presence_penalty"];
                         break;
-                    case isset($user_config["presence_penalty"]):
-                        $presence_penalty = $user_config["presence_penalty"];
+                    case isset($this->user_config["presence_penalty"]):
+                        $presence_penalty = $this->user_config["presence_penalty"];
                         break;
                 }
 
@@ -505,14 +505,14 @@ class Messages
                         $stop_sequence = $this->json_input["stop_sequence"];
                         if (!is_string($stop_sequence)) $this->error(400, "Invalid stop_sequence. Must be a string.");
                         break;
-                    case isset($session_config["stop_sequence"]):
-                        $stop_sequence = $session_config["stop_sequence"];
+                    case isset($this->session_config["stop_sequence"]):
+                        $stop_sequence = $this->session_config["stop_sequence"];
                         break;
-                    case isset($collection_config["stop_sequence"]):
-                        $stop_sequence = $collection_config["stop_sequence"];
+                    case isset($this->collection_config["stop_sequence"]):
+                        $stop_sequence = $this->collection_config["stop_sequence"];
                         break;
-                    case isset($user_config["stop_sequence"]):
-                        $stop_sequence = $user_config["stop_sequence"];
+                    case isset($this->user_config["stop_sequence"]):
+                        $stop_sequence = $this->user_config["stop_sequence"];
                         break;
                 }
 
@@ -522,14 +522,14 @@ class Messages
                         $temperature = $this->json_input["temperature"];
                         if (!is_numeric($temperature)) $this->error(400, "Invalid temperature. Must be numeric.");
                         break;
-                    case isset($session_config["temperature"]):
-                        $temperature = $session_config["temperature"];
+                    case isset($this->session_config["temperature"]):
+                        $temperature = $this->session_config["temperature"];
                         break;
-                    case isset($collection_config["temperature"]):
-                        $temperature = $collection_config["temperature"];
+                    case isset($this->collection_config["temperature"]):
+                        $temperature = $this->collection_config["temperature"];
                         break;
-                    case isset($user_config["temperature"]):
-                        $temperature = $user_config["temperature"];
+                    case isset($this->user_config["temperature"]):
+                        $temperature = $this->user_config["temperature"];
                         break;
                 }
             }
