@@ -79,9 +79,9 @@ class Messages
             extract($this->sql->single("SELECT count(1) as `valid`, `token_id`, `token`, `user_id` FROM `api_tokens` WHERE `token` = '$token'"));
             if (!$valid) $this->error(401, "Invalid token. Check your token and try again.");
             if (!$token_id) $this->error(401, "Invalid token. Check your token and try again.");
-            if (!$user_id) $this->error(401, "Invalid token. Check your token and try again.");
+            if (!$this->user_id) $this->error(401, "Invalid token. Check your token and try again.");
             $this->token_id = $token_id;
-            $this->user_id = $user_id;
+            $this->user_id = $this->user_id;
         } catch (\Exception $e) {
             $this->error(500, $e->getMessage());
         } catch (\Error $e) {
@@ -393,7 +393,7 @@ class Messages
                         if (!is_String($key) || strlen($key) != 51) $this->error(400, "Invalid key length. Must be a string 51 characters.");
                         //save the new key in the db
                         $sql_key = $this->sql->escape($key);
-                        $this->sql->query("INSERT INTO `chatgpt_api_keys` (`user_id`,`key`) VALUES ('$user_id','$sql_key') ON DUPLICATE KEY UPDATE `key_id` = LAST_INSERT_ID(`key_id`)");
+                        $this->sql->query("INSERT INTO `chatgpt_api_keys` (`user_id`,`key`) VALUES ('{$this->user_id}','$sql_key') ON DUPLICATE KEY UPDATE `key_id` = LAST_INSERT_ID(`key_id`)");
                         $this->key_id = $this->sql->insert_id();
                         break;
                     case isset($session_config["key_id"]):
@@ -408,7 +408,7 @@ class Messages
                 }
 
                 if (!isset($this->key_id)) $this->error(400, "No key specified. You must specify a key.");
-                $key_result = $this->sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '{$this->key_id}' AND `user_id` = '$user_id'");
+                $key_result = $this->sql->single("SELECT `key` FROM `chatgpt_api_keys` WHERE `key_id` = '{$this->key_id}' AND `user_id` = '{$this->user_id}'");
 
                 if (!$key_result) $this->error(400, "Invalid key. Check your key and try again.");
                 $openai = \OpenAI::client($key_result["key"]);
