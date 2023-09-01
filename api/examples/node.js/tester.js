@@ -17,7 +17,7 @@ const requestOptions = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer' + token
   },
-  body: config_text 
+  json: config
 };
 
 const req = https.request(url, requestOptions, (res) => {
@@ -71,7 +71,7 @@ const req = https.request(url, requestOptions, (res) => {
           'Content-Length': JSON.stringify(postData).length
         }
       };
-const req = https.request(url, requestOptions, (res) => {
+      const req = https.request(url, requestOptions, (res) => {
         res.on('data', (chunk) => {
           const responseData = chunk.toString();
           console.log(responseData);
