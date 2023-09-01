@@ -91,7 +91,7 @@ class Messages
 
         // init the encoder
         require_once(__DIR__ . "/../../../TikToken.php");
-        $encoder = new TikToken();
+        $this->encoder = new TikToken();
 
         // init the response
         $this->response = [];
@@ -578,7 +578,7 @@ class Messages
                         $this->pad_echo($delta_content);
                     }
                 }
-                $token_count = $encoder->token_count($full_response);
+                $token_count = $this->encoder->token_count($full_response);
                 $sql_text = $this->sql->escape($full_response);
                 $this->sql->query("INSERT INTO `chat_messages` (`session_id`, `role`, `content`, `token_count`) VALUES ('{$this->session_id}', 'assistant', '$sql_text', '$token_count')");
                 exit();
@@ -586,7 +586,7 @@ class Messages
                 $ai_response = $openai->chat()->create($prompt);
                 $this->response = array_merge($this->response, $ai_response->toArray());
                 $full_response = $this->response["choices"][0]["message"]["content"];
-                $token_count = $encoder->token_count($full_response);
+                $token_count = $this->encoder->token_count($full_response);
                 $sql_text = $this->sql->escape($full_response);
                 $this->sql->query("INSERT INTO `chat_messages` (`session_id`, `role`, `content`, `token_count`) VALUES ('{$this->session_id}', 'assistant', '$sql_text', '$token_count')");
                 if (!isset($this->response["tokens_inserted"])) $this->response["tokens_inserted"] = $token_count;
