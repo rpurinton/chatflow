@@ -17,7 +17,7 @@ const requestOptions = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer' + token
   },
-  json: config
+  body: config_text
 };
 
 const req = https.request(url, requestOptions, (res) => {
